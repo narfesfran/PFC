@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+<!--
+<footer class="container-fluid footer">
+  <a class="tool" href="#" data-toggle="tooltip" data-placement="top" title="Si necesitas ayuda, pincha en los iconos de interrogación que verás por la página"><img style="  height: 8vh; position: fixed; bottom: -2px; z-index: 40;" src="{% static 'img/logo.png' %}" ></a><p class="text-right"> BE around friends, BE around family, BE around the world!!!&nbsp;&nbsp;&nbsp;<span style="font-size: x-large; font-weight: bolder; color: #76DD00; border: solid 2px #76DD00; padding: 5px; background-color: #440000;">&nbsp;B 'round&nbsp;</span></p>
+</footer>-->
+
+<footer class="container-fluid footer tool" data-toggle="tooltips" data-placement="top" >
+  <img class="tool" style="height: 14vh;" src="{% static 'img/logo.png' %}" >
+</footer>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltips"]').tooltip({title: "<span style='font-size: 1.5em; color: white;'>Si necesitas ayuda, pincha en los iconos de interrogación ? que verás por la página y trataremos de echarte una mano</span>", html: true, placement: "auto"});
+});
+</script>

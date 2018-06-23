@@ -1,0 +1,20 @@
+
+ {% for item in item_list %}
+      <span>
+      {% if item.tipo == 'site' %}
+      <a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconsite glyphicon-map-marker"></span>  {{ item.name }} {{item.nota}}</a>
+      {% else %}
+      <a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconpoi glyphicon-map-marker"></span>  {{ item.name }} {{item.nota}}</a>
+      {% endif %}
+        {% if item.author == request.user.pk and perms.PFC.add_place %}
+              <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este sitio" class="glyphicon glyphicon-remove"></span></a> <a href="{% url 'edit_place' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para editar este sitio"><span class="glyphicon glyphicon-edit"></span></a><a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este sitio"> <span class="glyphicon glyphicon-picture"></span>+</a>
+                <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+        {% endif %}
+        {% if perms.auth.change_user %}
+              <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este sitio" class="glyphicon glyphicon-remove"></span></a> <a href="{% url 'edit_place' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para editar este sitio"><span class="glyphicon glyphicon-edit"></span></a><a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este sitio"> <span class="glyphicon glyphicon-picture"></span>+</a>
+                <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+        {% endif %}
+      </span><br>
+      {% endfor %}

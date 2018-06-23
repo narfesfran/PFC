@@ -1,0 +1,247 @@
+/* ELEMENTO ACTIVO */
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #66AA00;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #66AA00;
+}
+
+/* ELEMENTO HOVER */
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #FFFFFF;  /*Sets the text hover color on navbar*/
+    /*background-color: #994400;*/
+    background-color: #AA6E19;
+}
+.dropdown-menu > li > a:link{
+    text-decoration: none;
+    padding:10px 30px 10px 15px;
+    font-size: large;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    color: #FFFFFF;
+    background-color: #888888;  /*change color of links in drop down here*/
+}
+ul.dropdown-menu{
+    background-color: #484F43;
+    color: #CCCC99;
+    margin:0;
+    padding:0;
+}
+li.submenu{
+    background-color: #CCCCCC;
+    padding:0;
+    margin: 0;
+    color: #000000;
+}
+li.submenu > a{
+    color: #CCCC99;
+    font-weight: bold;
+}
+li.submenu{
+    background-color: transparent;
+    padding:0;
+    margin: 0;
+    color: #000000;
+}
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+
+h2, h4 {
+    color: #FFFFFF;
+}
+
+#bodi{
+    background-color: #484F43;
+    color: #CCCC99;
+}
+
+a, a:active, a:link, a:visited {
+    color: #AAFF55;
+}
+
+a:hover{
+    color: #FFFFFF;
+}
+
+.filtro-head{
+background-color: #222222;
+color: #EEEEEE;
+}
+
+.btn-filtro{
+    background-color: #333333;
+    color: #AAFF55;
+}
+
+.btn-filtro:hover{
+    background-color: #AA6E19;
+}
+
+
+.btn-filtro-head, .btn-filtro-head:visited, .btn-filtro-head:hover, .btn-filtro-head:link{
+    background-color: #5E0000;
+    color: #CCCCCC;
+    font-weight: bold;
+    border:none;
+}
+
+.well, .well a{
+    background-color: #AA6E19;
+    color: #EDC15A;
+}
+.well a:hover{
+    color: #FFFFFF;
+}
+
+.iconsite{color: #FF0000}
+.iconpoi{color: #00DD00}
+.iconfavorito{color: #EBB000;}
+
+
+
+.botonfavoritos{
+    background: none;
+    border: none;
+    margin 0px;
+    padding: 0px;}
+.botonfavoritos:hover{
+    color: yellow;
+    /*color: #FF3300;*/
+    }
+
+
+
+#buscador{
+    background-color: #FFF9ED;
+    color: #5E0000;
+    border: none;
+    border-radius:0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    text-align: center;
+}
+
+#buscador > placeholder{
+color:green;
+}
+
+.bactive{
+    background-color: #66AA00;
+    color: #FFFFFF;
+}
+
+.tablaresultados {
+    border: 1px solid #5E0000;
+    text-align: left:
+}
+.tablaresultados td {
+    border: 1px solid #5E0000;
+    text-align: center;
+    padding: 5px;
+}
+
+
+
+.star{color: #5E0000;}
+
+
+.etiqueta_maps{background-color: #484F43; color: #EEEEEE; width: 16vw; padding:5px 15px; font-size:18px;}
+
+
+
+.modal{
+    background-color:rgba(5,20,0,0.8);
+}
+
+.modal-content{
+    background-color:#666666;
+    border: solid 10px #004400;
+}
+
+.media-chat{
+    background-color: #222222;
+    padding:30px;
+    overflow-y: auto;
+    height: 55vh;
+}
+
+
+.inicioa{
+    color: #76DD00;
+}
+.panel-title > a{
+    color: #EDC15A;
+}
+.panel-heading{
+    background-color: #AA6E19;
+}
+.panel{
+    border: solid 2px #AA6E19;
+}
+
+
+.btn-danger{
+    background-color: #AA6E19;
+    border-color: #995D08;
+}
+.btn-danger:hover{
+    background-color: #66AA00;
+    border-color: #995D08;
+}
+
+.btn-punt{
+    background-color: transparent;
+    border: none;
+    margin-left: 0;
+    margin-right:-8px;
+}
+.btn-punt:hover{
+    background-color: transparent;
+    color: yellow;
+}
+
+
+.stats{
+    font-weight: bold;
+    font-size: smaller;
+    color: #FFFFFF;
+
+}
+a.ayuda_a:hover{
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+
+
+#span0, #span1, #span2, #span3, #span4, #span5, #span6, #span7, #span8, #span9, #span10 {border: solid 1px #AAFF55;}
+.panel {border: 0px;}
+.panel-heading, a.panel-heading{background-color: #111111;}
+.panel-heading > h2 > a{color: #AAFF55;}
+.panel-collapse{background-color: #222222;}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #222222;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #222A22;
+}
+.table-hover a:hover{
+    color: #FFFFFF;
+}
+.tableth{
+background-color: #222222; color: #FFFFFF;
+}
+
+.progress-container {
+  width: 100%;
+  background: #222222;
+}
+a.btn-confirm{color: #000000;}
+a.btn-cancel{color: #ff0000;}

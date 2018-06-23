@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    <label for="username">Usuario:</label>
+    {{ form.username }}
+    <label for="password">Contraseña:</label>
+    {{ form.password }}
+
+    <button type="submit" name="login">Login</button>
+</form>
+</body>
+</html>

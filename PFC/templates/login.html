@@ -1,0 +1,64 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+    <style>
+
+
+    </style>
+</head>
+<body id="bodi">
+{% include 'navbar0.html' %}
+{% include 'carrusel.html' %}
+
+<div class="container text-left">
+    <br><h2>Inicio de sesión</h2><br><br><br>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">SALIR</a>
+            {% else %}
+            <form method="POST" class="form-horizontal">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="username">Nombre de usuario: </label>
+                    <div class="col-xs-12 col-sm-5 col-md-6 col-lg-4">
+                        <input type="text" class="form-control" placeholder="Introduce tu username" name="username">
+                        {% if form.username.errors %}<span class="spanerror">  * necesario. Sólo caracteres alfanuméricos y @ . + - _</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="password">Contraseña: </label>
+                    <div class="col-xs-12 col-sm-5 col-md-6 col-lg-4">
+                        <input type="password" class="form-control" placeholder="Introduce tu password" name="password">
+                        {% if form.password.errors %}<span class="spanerror">  * necesario.</span>{% endif %}
+                        {% if errorlogin %}<span class="spanerror">  * Usuario o contraseña incorrectos. Por favor verifica los datos</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-0 col-xs-12 col-sm-offset-4 col-sm-8 col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-8">
+                        <button type="submit" class="btn-danger">login</button>
+                    </div>
+                </div>
+                <div id="divtest2"></div>
+            </form>
+            <p class="text-center">¿Eres nuevo? - <a href="{% url 'new_user' %}">Regístrate</a></p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<br><br>
+
+{% include 'footer.html' %}
+<script>
+  if (typeof navigator.geolocation == 'object'){
+    navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+  }
+  function mostrar_ubicacion(p) {
+    document.getElementById("divtest2").innerHTML = ('<p><label hidden="hidden" for="id_lat">latitud:</label> <input hidden="hidden" id="id_lat" name="lat" step="any" type="number" value="' + p.coords.latitude + '" /></p><p><label hidden="hidden" for="id_lon">longitud:</label> <input hidden="hidden" id="id_lon" name="lon" step="any" type="number" value="' + p.coords.longitude + '" /></p>');
+  }
+</script>
+</body>
+</html>

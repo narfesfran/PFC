@@ -1,0 +1,33 @@
+{% load staticfiles %}
+
+<nav class="navbar navbar-fixed-top">
+
+  <div class="container-fluid" style="margin-left:-15px;">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle text-left" data-toggle="collapse" data-target="#myNavbar">
+        <h1 class="text-left">MENÚ</h1>
+
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        {% if perms.auth.change_user %}
+        <li><a href="{% url 'user_list' %}">Usuarios</a></li>
+        {% elif user.is_authenticated %}
+        <li><a href="{% url 'user_info' pk=request.user.pk %}"><span class="glyphicon glyphicon-user"></span>&nbsp;Mis datos</a></li>
+        {% endif %}
+        <li class="active"><a href="{% url 'place_list' tp='place' %}"><span class="glyphicon glyphicon-th-large"></span>&nbsp;Lugares</a></li>
+        <li><a href="{% url 'recomend' %}"><span class="glyphicon glyphicon-heart-empty"></span>&nbsp;Recomendador</a></li>
+        <li><a href="{% url 'ayuda' %}"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;Ayuda</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off"></span> [salir] </a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}"> Identifícate <span class="glyphicon glyphicon-log-in"></span></a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+    <h1>Estás en Inicio > Lugares > Todos los lugares</h1>
+</nav>

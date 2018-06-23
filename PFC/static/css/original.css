@@ -1,0 +1,219 @@
+/* ELEMENTO ACTIVO */
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #66AA00;
+}
+/* ELEMENTO HOVER */
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #FFFFFF;  /*Sets the text hover color on navbar*/
+    background-color: #AA6E19;
+}
+/* ELEMENTOS NORMALES */
+    .navbar-inverse {
+    background-color: #5E0000;
+    color: #FFFFFF;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #CCCCCC; /*Change active text color here*/
+}
+.dropdown-menu > li > a:link{
+    text-decoration: none;
+    padding:10px 30px 10px 15px;
+    font-size: large;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus{
+    color: #FFFFFF;
+    background-color: #AA6E19;  /*change color of links in drop down here*/
+}
+ul.dropdown-menu{
+    background-color: #5E0000;
+    margin:0;
+    padding:0;
+}
+li.submenu{
+    background-color: #5E0000;
+    padding:0;
+    margin: 0;
+
+}
+li.submenu > a{
+    color: #CCCCCC;
+    font-weight: bold;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #AA6E19;
+}
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+
+h2, h4{
+    color: #660000;
+}
+
+#bodi{
+    background-color: #EDE9B9;
+    color: #000000;
+}
+
+a, a:active, a:link, a:visited {
+    color: #FF3300;
+}
+
+a:hover{
+    color: #440000;
+}
+
+.filtro-head{
+background-color: #660000;
+color: #FFFFFF;
+}
+
+
+.btn-filtro{
+    background-color: #DECE7E;
+    color: #5E0000;
+}
+
+.btn-filtro:hover{
+    background-color: #AA6E19;
+}
+
+.well, .well a{
+    background-color: #AA6E19;
+    color: #EDE9B9;
+}
+.well a:hover{
+    color: #FFFFFF;
+}
+
+.iconsite{color: #AA0000}
+.iconpoi{color: #006600}
+.iconfavorito{color: #EBB000; font-weight: bolder;}
+
+
+
+#buscador{
+    background-color: #FFF9ED;
+    color: #5E0000;
+    border: none;
+    border-radius:0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    text-align: center;
+}
+
+#buscador > placeholder{
+color:green;
+}
+
+.bactive{
+    background-color: #66AA00;
+    color: #FFFFFF;
+}
+
+.tablaresultados {
+    border: 1px solid #5E0000;
+    text-align: left:
+}
+.tablaresultados td {
+    border: 1px solid #5E0000;
+    text-align: center;
+    padding: 5px;
+}
+
+
+.table-hover a:hover{
+    color: #5E0000;
+}
+
+.star{color: #5E0000;}
+
+
+.etiqueta_maps{background-color: #EDE9B9; color: #5E0000; width: 16vw; padding:5px 15px; font-size:18px;}
+
+
+.botonfavoritos:hover{
+    color: #FF3300;
+    }
+
+
+
+
+.modal{
+    background-color:rgba(5,20,0,0.8);
+}
+
+.modal-content{
+    background-color:#EDE9B9;
+    border: solid 10px #004400;
+}
+
+.media-chat{
+    background-color: #FFFFFF;
+    padding:30px;
+    overflow-y: auto;
+    height: 55vh;
+}
+
+
+.inicioa{
+    color: #76DD00;
+}
+.panel-title > a{
+    color: #EDE9B9;
+}
+.panel-heading{
+    background-color: #AA6E19;
+}
+.panel{
+    border: solid 2px #AA6E19;
+}
+
+.btn-danger{
+    background-color: #AA6E19;
+    border-color: #995D08;
+}
+.btn-danger:hover{
+    background-color: #66AA00;
+    border-color: #995D08;
+}
+
+.btn-punt{
+    background-color: transparent;
+    border-color: #995D08;
+    color: #000000;
+    border: none;
+    margin-left: 0;
+    margin-right:-8px;
+}
+.btn-punt:hover{
+    background-color: transparent;
+    color: #FF3300;
+}
+.stats{
+    font-weight: bold;
+    font-size: smaller;
+    color: #660000;
+}
+
+
+
+.tableth{
+background-color: #222222; color: #FFFFFF;
+}
+
+a.ayuda_a:hover{
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.progress-container {
+  width: 100%;
+  background: #5E0000;
+}
+a.btn-confirm{color: #000000;}
+a.btn-cancel{color: #ff0000;}
+

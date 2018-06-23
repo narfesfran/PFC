@@ -1,0 +1,323 @@
+{% load staticfiles %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+
+</head>
+
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+
+{% if tipo == 'place' %}
+{% include 'navbarsimple2.html' %}
+{% elif tipo == 'site' %}
+{% include 'navbarsimple2s.html' %}
+{% else %}
+{% include 'navbarsimple2p.html' %}
+{% endif %}
+{% include 'carrusel.html' %}
+
+{% else %}
+
+{% include 'navbar2.html' %}
+{% include 'carrusel.html' %}
+
+{% endif %}
+
+<div class="row rowlist">
+    <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+  <div id="filtros" style="margin-top:10px; background-color: transparent; border-right: solid 3px #000000; border-bottom: solid 3px #000000; margin-right:3em;" class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+
+    {% if request.user.profile.css == "3" %}
+    {% if tipo == 'place' %}<form  class="btn-group-vertical" method="get" action="{% url 'place_list' tp='place' %}">
+    {% elif tipo == 'site' %}<form class="btn-group-vertical" method="get" action="{% url 'place_list' tp='site' %}">
+    {% else %}<form class="btn-group-vertical" method="get" action="{% url 'place_list' tp='poi' %}">{% endif %}
+
+    <span style="display:inline-block; width: 13em; padding-top: 50px;" class="filtro-head">Selecciona una o más<br>categorías para filtrar<br>los resultados&nbsp;<a data-toggle="tooltip"><span data-toggle="modal" data-target="#ayudafiltrocategorias" class="glyphicon glyphicon-arrow-down"></span></a>&nbsp;</span>
+
+{% else %}
+    {% if tipo == 'place' %}<form class="btn-group-vertical" method="get" action="{% url 'place_list' tp='place' %}">
+    {% elif tipo == 'site' %}<form class="btn-group-vertical" method="get" action="{% url 'place_list' tp='site' %}">
+    {% else %}<form class="btn-group-vertical" method="get" action="{% url 'place_list' tp='poi' %}">{% endif %}<br>
+
+    <h4 style="display:inline-block; width: 20em;" class="filtro-head" >Filtrar por categorías&nbsp;&nbsp;<a data-toggle="tooltip"><span data-toggle="modal" data-target="#ayudafiltrocategorias" class="glyphicon glyphicon-question-sign" style="color: #FFFFFF;"></span></a>&nbsp;</h4>
+
+{% endif %}
+    <input class="btn btn-filtro {% if 0 in cats %}bactive{% endif %}" type="submit" value="Arte y diseño" name="cat" />
+    <input class="btn btn-filtro {% if 1 in cats %}bactive{% endif %}" type="submit" value="Arquitectura" name="cat" />
+    <input class="btn btn-filtro {% if 2 in cats %}bactive{% endif %}" type="submit" value="Historia" name="cat" />
+    <input class="btn btn-filtro {% if 3 in cats %}bactive{% endif %}" type="submit" value="Ciencia y tecnología" name="cat" />
+    <input class="btn btn-filtro {% if 4 in cats %}bactive{% endif %}" type="submit" value="Naturaleza" name="cat" />
+    <input class="btn btn-filtro {% if 5 in cats %}bactive{% endif %}" type="submit" value="Aventura" name="cat" />
+    <input class="btn btn-filtro {% if 6 in cats %}bactive{% endif %}" type="submit" value="Literatura" name="cat" />
+    <input class="btn btn-filtro {% if 7 in cats %}bactive{% endif %}" type="submit" value="Música" name="cat" />
+    <input class="btn btn-filtro {% if 8 in cats %}bactive{% endif %}" type="submit" value="Vida urbana" name="cat" />
+
+  </form><div id="map" style="border: 5px solid #55000000; height: 75vh; width: 100%;"></div>
+  </div>
+</div>
+
+<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+  <div class="container">
+
+    <div class="listalugares">
+
+    {% if tipo == 'place' %}
+    <h2>Listado de Lugares <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
+      {% if perms.PFC.add_place %}
+      <a href="{% url 'new_place' tp='site' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Sitio </a><br>
+      <a href="{% url 'new_place' tp='poi' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Punto de Interés </a><br><br>
+      {% endif %}
+    {% elif tipo == 'site' %}
+    <h2>Listado de Sitios <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
+      {% if perms.PFC.add_place %}
+      <a href="{% url 'new_place' tp='site' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Sitio </a><br><br>
+      {% endif %}
+    {% else %}
+    <h2>Listado de Puntos de Interés <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
+      {% if perms.PFC.add_place %}
+      <a href="{% url 'new_place' tp='poi' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Punto de Interés </a><br><br>
+      {% endif %}
+    {% endif %}
+
+
+
+    <div id="resultados">
+
+
+
+
+
+    <input style="display: inline-block" class="btn-filtro {% if 0 in cats %}bactive{% endif %}" type="submit" value="Arte y diseño" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 1 in cats %}bactive{% endif %}" type="submit" value="Arquitectura" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 2 in cats %}bactive{% endif %}" type="submit" value="Historia" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 3 in cats %}bactive{% endif %}" type="submit" value="Ciencia y tecnología" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 4 in cats %}bactive{% endif %}" type="submit" value="Naturaleza" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 5 in cats %}bactive{% endif %}" type="submit" value="Aventura" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 6 in cats %}bactive{% endif %}" type="submit" value="Literatura" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 7 in cats %}bactive{% endif %}" type="submit" value="Música" name="cat" />
+    <input style="display: inline-block" class="btn-filtro {% if 8 in cats %}bactive{% endif %}" type="submit" value="Vida urbana" name="cat" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% if tipo == 'place' %}
+        <a href="{% url 'place_list' tp='site' %}">Ver sólo los <span class="glyphicon iconsite glyphicon-map-marker"></span>Sitios</a><br>
+        <a href="{% url 'place_list' tp='poi' %}">Ver sólo los <span class="glyphicon iconpoi glyphicon-map-marker"></span>Puntos de Interés</a>
+        {% elif tipo == 'site' %}
+        <a href="{% url 'place_list' tp='place' %}">Ver todos los <span class="glyphicon iconsite glyphicon-map-marker"></span><span style="margin-left:-7px;" class="glyphicon iconpoi glyphicon-map-marker"></span>Lugares</a><br>
+        <a href="{% url 'place_list' tp='poi' %}">Ver sólo los <span class="glyphicon iconpoi glyphicon-map-marker"></span>Puntos de Interés</a>
+        {% else %}
+        <a href="{% url 'place_list' tp='place' %}">Ver todos los <span class="glyphicon iconsite glyphicon-map-marker"></span><span style="margin-left:-7px;" class="glyphicon iconpoi glyphicon-map-marker"></span>Lugares</a><br>
+        <a href="{% url 'place_list' tp='site' %}">Ver sólo los <span class="glyphicon iconsite glyphicon-map-marker"></span>Sitios</a>
+        {% endif %}
+        <div style="float: right;"><a href="#" onClick="show('listadonombres','listadoimagenes','_nom','_ima')">Ver <span id="_nom" style="display: inline-inline;">sólo NOMBRES</span><span id="_ima" style="display: none;">IMÁGENES</span></a></div><br>
+        <div style="border-bottom: solid 2px #222222; width: 100%;"></div><br>
+
+
+
+
+        <div id="listadoimagenes" class="text-center">
+        {% for item in item_list %}
+        <div class="div-imagenlista text-center"><div>{{item.name}}<br>{{item.nota}}</div><a href="{% url 'place_info' pk=item.pk %}"><img class="desvanecer img-thumbnail" src="{% thumbnail item.image 300x200 crop %}" alt="imagen sin nombre" /></a></div>
+        {% endfor %}
+        </div>
+
+        <div id="listadonombres" style="display:none;">
+        <p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="A">A</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="B">B</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="C">C</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="D">D</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="E">E</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="F">F</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="G">G</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="H">H</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="I">I</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="J">J</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="K">K</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="L">L</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="M">M</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="N">N</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="Ñ">Ñ</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="O">O</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="P">P</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="Q">Q</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="R">R</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="S">S</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="T">T</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="U">U</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="V">V</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="W">W</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="X">X</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="Y">Y</p><p class="btn btn-success float-lt" style="color: #FFFFFF" href="#" id="Z">Z</p>
+        <p><input class="" id="buscador" style="width: 51vw;" type="text" placeholder="Buscar en los resultados..."></p><br><br>
+            <!--<div id="nombres">-->
+                <!--<ul style="text-decoration: none;">-->
+          <!--{% for item in item_list %}-->
+          <!--<li style="text-decoration: none;" title="{{item.name}}"><span>{{forloop.counter}}</span>-->
+          <!--{% if item.tipo == 'site' %}-->
+              <!--<a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconsite glyphicon-map-marker"></span>  {{ item.name }}</a><span>&nbsp;{{item.nota}}&nbsp;para los usuarios</span>-->
+          <!--{% else %}-->
+          <!--<a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconpoi glyphicon-map-marker"></span>  {{ item.name }}</a><span>&nbsp;{{item.nota}}&nbsp;para los usuarios</span>-->
+          <!--{% endif %}-->
+            <!--{% if item.author == request.user.pk and perms.PFC.add_place %}-->
+                  <!--<a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este sitio" class="glyphicon glyphicon-remove"></span></a> <a href="{% url 'edit_place' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para editar este sitio"><span class="glyphicon glyphicon-edit"></span></a><a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este sitio"> <span class="glyphicon glyphicon-picture"></span>+</a>-->
+                    <!--&lt;!&ndash; Modal &ndash;&gt;<div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog">&lt;!&ndash; Modal content&ndash;&gt;<div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                    <!--<h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>-->
+          <!--{% endif %}-->
+          <!--</li>-->
+          <!--{% endfor %}-->
+                <!--</ul></div>-->
+
+
+
+                        <div id="nombres">
+                <table>
+          {% for item in item_list %}
+                    <tr style="text-decoration: none;" title="{{item.name}}"><td align="right"><span style="padding-right:7px; font-family: 'Lucida Cnsole';">{{forloop.counter}}</span></td><td>
+          {% if item.tipo == 'site' %}
+              <a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconsite glyphicon-map-marker"></span>  {{ item.name }}</a>&nbsp;{{item.nota}}<span class="glyphicon glyphicon-stats"></span>
+          {% else %}
+          <a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconpoi glyphicon-map-marker"></span>  {{ item.name }}</a>&nbsp;{{item.nota}}<span class="glyphicon glyphicon-stats"></span>
+          {% endif %}
+            {% if item.author == request.user.pk and perms.PFC.add_place %}
+                  <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este sitio" class="glyphicon glyphicon-remove"></span></a> <a href="{% url 'edit_place' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para editar este sitio"><span class="glyphicon glyphicon-edit"></span></a><a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este sitio"> <span class="glyphicon glyphicon-picture"></span>+</a>
+                    <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+          {% endif %}
+          </td></tr>
+          {% endfor %}
+                </table></div>
+
+
+
+
+
+        </div>
+
+    </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+
+
+
+<br><br>
+{% include 'footer.html' %}
+{% include 'modalverlugares.html' %}
+{% include 'modalfiltrocategorias.html' %}
+<script>
+$(document).ready(function(){
+  $("#buscador").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#nombres tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+                    <script>
+                  var image = "{% static 'img/marker.png' %}";
+                  var site = "{% static 'img/site.png' %}";
+                  var poi= "{% static 'img/poi.png' %}";
+                  var image0 = "{% static 'img/marker0.png' %}";
+                  function initMap() {
+
+                    {% for item in item_list %}
+                    var posicion{{forloop.counter}} = {lat: {{item.latitude}}, lng: {{item.longitude}}};{% endfor %}
+                    var posicion = {lat: 37, lng: -3.703451};
+                    var infowindow;
+                    var markers = [];
+                    var style = [{
+                        textColor: '#FFFFFF',
+                        textSize: 18,
+                        anchor: [0, 0],
+                        url: "{% static 'img/m1.png' %}",
+                        height: 75,
+                        width: 75
+                    }]
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 5,
+                      center: posicion,
+                      mapTypeId: 'roadmap',
+                      scrollwheel: true
+                    });
+
+                    {% for item in item_list %}
+                    var contentString{{forloop.counter}} = "<div>{% if item.tipo == 'site' %}<a href=\"{% url 'place_info' pk=item.pk %}\" style=\"color:#000000;\"><span class=\"glyphicon iconsite glyphicon-map-marker\"></span>  {{item}} {{item.nota}}</a>{% else %}<a href=\"{% url 'place_info' pk=item.pk %}\" style=\"color:#000000;\"><span class=\"glyphicon iconpoi glyphicon-map-marker\"></span>  {{item}} {{item.nota}}</a>{% endif %}</div>";{% endfor %}
+
+                    {% for item in item_list %}
+                    var marker{{forloop.counter}} = new google.maps.Marker({
+                      position: posicion{{forloop.counter}},
+                      map: map,
+                      icon: {{item.tipo}}
+                    });
+
+                    markers.push(marker{{forloop.counter}});{% endfor %}
+
+                    {% for item in item_list %}
+                    google.maps.event.addListener(marker{{forloop.counter}}, 'click', function() {
+                      if (infowindow) {infowindow.close(); }
+                      infowindow = new google.maps.InfoWindow({content: contentString{{forloop.counter}}});
+                      infowindow.open(map, marker{{forloop.counter}});
+                    });{% endfor %}
+
+                    var markerCluster = new MarkerClusterer(map, markers, {
+                      maxZoom: 16,
+                      zoomOnClick: true,
+                      gridSize: 50,
+                      styles: style,
+                      imagePath: "{% static 'img/m/' %}"},
+                      );
+
+                  }
+        </script>
+        <script src="{% static 'js/markerclusterer.js' %}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCZKHlsN69qjARnuxnepkyTKnCY3OWZkU&callback=initMap"></script>
+
+<script type="text/javascript">
+function show(div1,div2,div3,div4) {
+  obj1 = document.getElementById(div1);
+  obj2 = document.getElementById(div2);
+  obj3 = document.getElementById(div3);
+  obj4 = document.getElementById(div4);
+  obj1.style.display = (obj1.style.display=='none') ? 'block' : 'none';
+  obj2.style.display = (obj2.style.display=='none') ? 'block' : 'none';
+  obj3.style.display = (obj3.style.display=='none') ? 'inline' : 'none';
+  obj4.style.display = (obj4.style.display=='none') ? 'inline' : 'none';
+}
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#A").click(function(){$("#nombres li").hide();$("#nombres li[title^='A']").show();});
+  $("#B").click(function(){$("#nombres li").hide();$("#nombres li[title^='B']").show();});
+  $("#C").click(function(){$("#nombres li").hide();$("#nombres li[title^='C']").show();});
+  $("#D").click(function(){$("#nombres li").hide();$("#nombres li[title^='D']").show();});
+  $("#E").click(function(){$("#nombres li").hide();$("#nombres li[title^='E']").show();});
+  $("#F").click(function(){$("#nombres li").hide();$("#nombres li[title^='F']").show();});
+  $("#G").click(function(){$("#nombres li").hide();$("#nombres li[title^='G']").show();});
+  $("#H").click(function(){$("#nombres li").hide();$("#nombres li[title^='H']").show();});
+  $("#I").click(function(){$("#nombres li").hide();$("#nombres li[title^='I']").show();});
+  $("#J").click(function(){$("#nombres li").hide();$("#nombres li[title^='J']").show();});
+  $("#K").click(function(){$("#nombres li").hide();$("#nombres li[title^='K']").show();});
+  $("#L").click(function(){$("#nombres li").hide();$("#nombres li[title^='L']").show();});
+  $("#M").click(function(){$("#nombres li").hide();$("#nombres li[title^='M']").show();});
+  $("#N").click(function(){$("#nombres li").hide();$("#nombres li[title^='N']").show();});
+  $("#Ñ").click(function(){$("#nombres li").hide();$("#nombres li[title^='Ñ']").show();});
+  $("#O").click(function(){$("#nombres li").hide();$("#nombres li[title^='O']").show();});
+  $("#P").click(function(){$("#nombres li").hide();$("#nombres li[title^='P']").show();});
+  $("#Q").click(function(){$("#nombres li").hide();$("#nombres li[title^='Q']").show();});
+  $("#R").click(function(){$("#nombres li").hide();$("#nombres li[title^='R']").show();});
+  $("#S").click(function(){$("#nombres li").hide();$("#nombres li[title^='S']").show();});
+  $("#T").click(function(){$("#nombres li").hide();$("#nombres li[title^='T']").show();});
+  $("#U").click(function(){$("#nombres li").hide();$("#nombres li[title^='U']").show();});
+  $("#V").click(function(){$("#nombres li").hide();$("#nombres li[title^='V']").show();});
+  $("#W").click(function(){$("#nombres li").hide();$("#nombres li[title^='W']").show();});
+  $("#X").click(function(){$("#nombres li").hide();$("#nombres li[title^='X']").show();});
+  $("#Y").click(function(){$("#nombres li").hide();$("#nombres li[title^='Y']").show();});
+  $("#Z").click(function(){$("#nombres li").hide();$("#nombres li[title^='Z']").show();});
+
+
+});
+
+
+
+</script>
+
+
+</body>
+</html>

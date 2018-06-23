@@ -1,0 +1,150 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+</head>
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple3r.html' %}
+{% include 'carrusel.html' %}
+{% else %}
+{% include 'navbar3.html' %}
+{% include 'carrusel.html' %}
+{% endif %}
+
+<div id="marca" class="container text-left">
+  <h2>Resultados de la recomendación</h2><br>
+    <p><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;Zona de búsqueda: {{parametros.0}}. ¿No es correcto? <a href="{% url 'recomend' %}">&nbsp;&nbsp;<b>Vuelve a buscar</b>&nbsp;<span class="glyphicon glyphicon-search"></span></a></p>
+    <p><span class="glyphicon glyphicon-sort"></span>&nbsp;&nbsp;Puedes ordenar la tabla por columnas pinchando en su etiqueta</p>
+    <a href="#maps"><b><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;Ver los resultados en el mapa</b></a>
+    <br><br>
+
+  <span class="glyphicon iconsite glyphicon-map-marker"></span>= Sitios<span class="glyphicon iconpoi glyphicon-map-marker"></span>= Puntos de Interés
+  <div class="table-responsive">
+  <table id="resultabla" class="tablaresultados table table-hover tablesorter">
+    {% if request.user.profile.css == "3" %}
+    <thead>
+    <tr class="tableth" >
+      <th class="thorder"><div class="thordertit">Recomendado para ti</div></th>
+      <th class="thorder"><div class="thordertit">Lugar</div></th>
+      <th class="thorder"><div class="thordertit">km</div></th>
+    </tr>
+    </thead>
+    {% else %}
+    <thead>
+    <tr class="tableth" >
+      <th class="thorder"><div class="thordertit">Recomendado para ti</div></th>
+      <th class="thorder"><div class="thordertit">Lugar</div></th>
+      <th class="thorder"><div class="thordertit">Categorías coincidentes con tus preferencias de búsqueda</div></th>
+      <th class="thorder"><div class="thordertit">km</div></th>
+      <th class="thorder"><div class="thordertit">Valoración usuarios</div></th>
+    </tr>
+    </thead>
+    {% endif %}
+    <tbody>
+    {% for item in resultado %}
+    <tr>
+      <td style="text-align: left;">
+        <div class="progress"><div class="progress-bar green-bar" style="width:{{item.5}}%"><span class="span-bar">{{item.5}}%</span></div></div>
+      </td>
+      <td style="text-align: left;">
+        {% if item.0.tipo == 'site' %}
+        <a href="{% url 'place_info' pk=item.0.pk %}"><span class="glyphicon iconsite glyphicon-map-marker"></span>  {{item.0}}</a></td>
+        {% else %}
+        <a href="{% url 'place_info' pk=item.0.pk %}"><span class="glyphicon iconpoi glyphicon-map-marker"></span>  {{item.0}}</a></td>
+        {% endif %}
+      {% if request.user.profile.css == "3" %}
+      <td>{{item.2}}</td>
+      {% else %}
+      <td style="text-align: left;">[ {{item.4.0}} {% if item.4.1 %}| {{item.4.1}} {% endif %}{% if item.4.2 %}| {{item.4.2}} {% endif %}{% if item.4.3 %}| {{item.4.3}} {% endif %}{% if item.4.4 %}| {{item.4.4}} {% endif %}{% if item.4.5 %}| {{item.4.5}} {% endif %}{% if item.4.6 %}| {{item.4.6}} {% endif %}{% if item.4.7 %}| {{item.4.7}} {% endif %}{% if item.4.8 %}| {{item.4.8}} {% endif %} ]</td>
+      <td>{{item.2}}</td>
+      <td><div class="progress"><div class="progress-bar ambar-bar" style="width:{{item.3.0}}%"><span class="span-bar">{{item.3.1}}</span></div></div></td>
+      {% endif %}
+    </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+  </div>
+<span id="maps">&nbsp;</span>
+  <br><br><br>
+
+
+    <div id="map" style="border: 5px solid #550000; height: 75vh;"></div>
+    <span class="glyphicon glyphicon-eject"></span>&nbsp;&nbsp;<a href="#marca">Volver a la tabla</a>
+<br><br>
+
+
+</div>
+<br><br>
+{% include 'footer.html' %}
+<script>
+  $(document).ready(function()
+    {
+        $("#resultabla")
+          .tablesorter({sortList: [[0,1]]})
+    }
+);
+</script>
+        <script>
+                  var image = "{% static 'img/marker.png' %}";
+                  var site = "{% static 'img/site.png' %}";
+                  var poi= "{% static 'img/poi.png' %}";
+                  var image0 = "{% static 'img/marker0.png' %}";
+                  function initMap() {
+
+                    {% for item in resultado %}
+                    var posicion{{forloop.counter}} = {lat: {{item.0.latitude}}, lng: {{item.0.longitude}}};{% endfor %}
+                    var posicion = {lat: {{parametros.1.0}}, lng: {{parametros.1.1}}};
+                    var infowindow;
+                    var markers = [];
+                    var style = [{
+                        textColor: '#FFFFFF',
+                        textSize: 18,
+                        anchor: [0, 0],
+                        url: "{% static 'img/m1.png' %}",
+                        height: 75,
+                        width: 75
+                    }]
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 8,
+                      center: posicion,
+                      mapTypeId: 'hybrid',
+                      scrollwheel: true
+                    });
+
+                    {% for item in resultado %}
+                    var contentString{{forloop.counter}} = "<div class=\"etiqueta_maps\"><div><p>{% if item.0.tipo == 'site' %}<a href=\"{% url 'place_info' pk=item.0.pk %}\"><span class=\"glyphicon iconsite glyphicon-map-marker\"></span>  {{item.0}}</a>{% else %}<a href=\"{% url 'place_info' pk=item.0.pk %}\"><span class=\"glyphicon iconpoi glyphicon-map-marker\"></span>  {{item.0}}</a>{% endif %}</p><p>A {{item.2}}km <br>Nota de los usuarios: {{item.3.1}}</p></div><div class=\"progress\"><div class=\"progress-bar green-bar\" style=\"width:{{item.5}}%\"><span class=\"span-bar\">{{item.5}}%</span></div></div><br></div>";{% endfor %}
+
+                    {% for item in resultado %}
+                    var marker{{forloop.counter}} = new google.maps.Marker({
+                      position: posicion{{forloop.counter}},
+                      map: map,
+                      icon: {{item.0.tipo}}
+                    });
+
+                    markers.push(marker{{forloop.counter}});{% endfor %}
+
+                    {% for item in resultado %}
+                    google.maps.event.addListener(marker{{forloop.counter}}, 'click', function() {
+                      if (infowindow) {infowindow.close(); }
+                      infowindow = new google.maps.InfoWindow({content: contentString{{forloop.counter}}});
+                      infowindow.open(map, marker{{forloop.counter}});
+                    });{% endfor %}
+
+                    var markerCluster = new MarkerClusterer(map, markers, {
+                      maxZoom: 16,
+                      zoomOnClick: true,
+                      gridSize: 50,
+                      styles: style,
+                      imagePath: "{% static 'img/m/' %}"},
+                      );
+
+                  }
+        </script>
+        <script src="{% static 'js/markerclusterer.js' %}"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCZKHlsN69qjARnuxnepkyTKnCY3OWZkU&callback=initMap"></script>
+</body>
+</html>

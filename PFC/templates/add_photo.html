@@ -1,0 +1,56 @@
+{% load staticfiles %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+</head>
+<body id="bodi">
+
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple2.html' %}
+{% include 'carrusel.html' %}
+{% else %}
+{% include 'navbar2.html' %}
+{% include 'carrusel.html' %}
+{% endif %}
+
+
+<div class="container text-left">
+  <h2>Añadir/Borrar imágenes</h2>
+  <a href="{% url 'place_info' pk=ref %}"> <span class="glyphicon glyphicon-arrow-left"></span>  Volver a la página del lugar</a><br><br>
+  <div class="row">
+    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+      {% csrf_token %}
+      <div class="form-group">
+          <label hidden="hidden" for="{{form.place.id_for_label}}">Lugar de pertenencia: </label>
+          <div>
+            <input type="hidden" class="form-control" name="{{form.place.name}}" value="{{ref}}">
+            {% if form.tipo.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+          </div>
+        </div>
+      {{form.image}}
+      {% if form.image.errors %}<span class="spanerror">  * verifica que los datos son correctos</span><br>{% endif %}
+      <br><button class="btn-danger btn-lg" type="submit"><span class="glyphicon glyphicon-open-file"></span>&nbsp;&nbsp;SUBIR</button>&nbsp;&nbsp;<button class="btn-danger btn-lg" type="button"><a style="color: #FFFFFF;" href="{% url 'place_info' pk=ref %}"> <span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;HE TERMINADO</a></button><br><br>
+    </form>
+  </div>
+</div>
+
+
+
+<div class="container text-left">
+  {% if not item_list %}
+  <p>Lo sentimos, no hay imágenes para mostrar de momento</p>
+  {% else %}
+  {% for item in item_list %}
+  <div style="float: left; padding: 20px 30px 0px 0px;">
+  <img class="imagaleria img-thumbnail" src="{% thumbnail item.image 300x0 %}" alt="imagen sin nombre" />
+  <a href="{% url 'del_photo' pk=item.pk %}"><span class="glyphicon glyphicon-remove"></span></a><br>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+<br><br>
+{% include 'footer.html' %}
+</body>
+</html>

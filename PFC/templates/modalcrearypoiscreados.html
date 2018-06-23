@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!-- Modal -->
+<div class="modal fade" id="ayudacrearypoiscreados" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="float-rt" href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a><h2 class="modal-title"><span style="vertical-align: text-top;" class="glyphicon glyphicon-question-sign"></span> Crear/Editar Puntos de Interés</h2>
+            </div>
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="media-chat chat-lt">
+                            <p>Desde el siguiente enlace podrás crear un nuevo Lugar con categoría de Punto de Interés.</p>
+                            <p>Más abajo encontrarás todos los Puntos de Interés que hay en el sistema, incluyendo los que tú has creado como editor de contenido.</p>
+                            <p>A la derecha del nombre de los puntos de interés que tú hayas creado podrás ver tres iconos: <br>
+                               <span class="glyphicon glyphicon-remove"></span> para eliminar el Lugar,<br>
+                               <span class="glyphicon glyphicon-edit"></span> para editar el contenido del Lugar, y <br>
+                               <span class="glyphicon glyphicon-picture"></span>+ para añadir fotos al Lugar.</p>
+                            <p>Si pinchas en el nombre del Punto de Interés accederás a su ficha, desde donde también podrás acceder a estas opciones.</p>
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <img class="media-object logomedia-rt" src="{% static 'img/chatS2_ani.gif' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>

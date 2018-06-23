@@ -1,0 +1,132 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+    <style>
+        span.form-control > input{
+            border: none;
+            border-right: 1px solid #EEEEEE;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body id="bodi">
+{% include 'navbar1.html' %}
+{% include 'carrusel.html' %}
+
+<div class="container text-left">
+    <h2 style="margin-left: -0.5em;">Nuevo usuario</h2><br>
+
+    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    <h2>PASO 1: Datos de registro</h2>
+                    <p>Estos datos son necesarios para registrarte en el sistema. Los campos marcados con un asterisco * son obligatorios</p>
+                    </div>
+
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="id_username">* Nombre de usuario en el sistema: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        <input type="text" class="form-control" placeholder="Sólo caracteres alfanuméricos y @ . + - _ sin espacios" name="username">
+                        {% if form.username.errors %}<span class="spanerror">  * necesario. Sólo caracteres alfanuméricos y @ . + - _ sin espacios</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="id_password1">* Contraseña: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        <input type="password" class="form-control" placeholder="Introduce tu password" name="password1">
+                        {% if form.password1.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="id_password2">* Repite la contraseña: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        <input type="password" class="form-control" placeholder="Introduce tu password de nuevo" name="password2">
+                        {% if form.password2.errors %}<span class="spanerror">  * necesario. Debe coincidir con el campo contraseña</span>{% endif %}
+                    </div>
+                </div>
+
+                <br><hr style="border-top:2px solid #000000;"><br>
+                <div class="form-group">
+
+                    <h2>PASO 2 (OPCIONAL) - Datos personales</h2>
+                    <p>Si nos facilitas estos datos, aparecerán en tu perfil, y podremos contactar contigo en caso necesario, así como ofrecerte recomendaciones personalizadas si nos dices tus preferencias. En cualquier caso estos datos no se divulgarán a terceros y podrás borrarlos en cualquier momento editando tu perfil.</p>
+                    </div>
+                </div>
+
+
+                {% for field in profile_form %}
+                {% if field.name == "tipo" %}
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="{{field.id_for_label}}">{{field.label}}: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        <span class="form-control">{{field}}</span>
+                        {% if field.errors %}<span class="spanerror">  * verifica que los datos son correctos</span>{% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="{{field.id_for_label}}">{{field.label}}: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        {% if field.name == "cat_preferidas" %}
+                        <br><br>{{ field }}<br>
+                        {% elif field.name == "css"%}
+                        <br>
+                        <p>Selecciona uno. Puedes previsualizar los estilos pinchando en los siguientes botones. El estilo "SIMPLE" está especialmente diseñado para personas menos jóvenes <img style="width: 1.5em; vertical-align: text-top;" src="{% static 'img/emo_feliz.png' %}" alt="emoticono feliz"/></p>
+                        {{ field }}<span>&nbsp;&nbsp;&nbsp;</span>
+                        <span data-toggle="modal" data-target="#temaclaro"><button type="button" class="btn btn-default" data-toggle="muestraclaro">CLARO</button></span>
+                        <span data-toggle="modal" data-target="#temaoscuro"><button type="button" class="btn btn-default" data-toggle="muestraoscuro">OSCURO</button></span>
+                        <span data-toggle="modal" data-target="#temasimple"><button type="button" class="btn btn-default" data-toggle="muestrasimple">SIMPLE</button></span><br><br>
+                        {% else %}
+                        <input type="text" class="form-control" name="{{field.name}}" placeholder="(campo opcional)">{% if form.field.errors %}<span class="spanerror">  * error en los datos</span>{% endif %}
+                        {% if field.errors %}<span class="spanerror">  * Error. Verifica que todo está correcto</span>{% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+
+
+
+                {% endif %}
+                {% endfor %}
+
+                <div id="divtest2"></div>
+                <div class="form-group">
+                    <label class="control-label col-xs-6 col-sm-5 col-md-4 col-lg-4" for=""> </label>
+                    <div class="col-xs-3 col-sm-4 col-md-4 col-lg-4">
+                        <button type="submit" class="btn-danger btn-lg">CREAR</button><br><br>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<br><br>
+{% include 'footer.html' %}
+{% include 'modaltemaclaro.html' %}
+{% include 'modaltemaoscuro.html' %}
+{% include 'modaltemasimple.html' %}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="muestraclaro"]').tooltip({title: "<img src=\"{% static 'img/cssclaro.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+    $('[data-toggle="muestraoscuro"]').tooltip({title: "<img src=\"{% static 'img/cssoscuro.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+    $('[data-toggle="muestrasimple"]').tooltip({title: "<img src=\"{% static 'img/csssimple.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+});
+</script>
+<script>
+  if (typeof navigator.geolocation == 'object'){
+    navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+  }
+  function mostrar_ubicacion(p) {
+    document.getElementById("divtest2").innerHTML = ('<p><label hidden="hidden" for="id_lat">latitud:</label> <input hidden="hidden" id="id_lat" name="lat" step="any" type="number" value="' + p.coords.latitude + '" /></p><p><label hidden="hidden" for="id_lon">longitud:</label> <input hidden="hidden" id="id_lon" name="lon" step="any" type="number" value="' + p.coords.longitude + '" /></p>');
+  }
+</script>
+</body>
+</html>

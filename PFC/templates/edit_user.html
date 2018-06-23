@@ -1,0 +1,87 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+</head>
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple1.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left">
+{% else %}
+
+{% include 'navbar1.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left"><br>
+{% endif %}
+
+    <h2 style="margin-left: -0.5em;">Editando el perfil de {{user.username}}</h2><br>
+
+    <form method="post" enctype="multipart/form-data" class="form-horizontal">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    <br><h2>Datos personales</h2>
+                    </div>
+                </div>
+
+
+                {% for field in profile_form %}
+                {% if field.name != 'cat_preferidas' and field.name != 'css' %}
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="{{field.id_for_label}}">{{field.label}}: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                        <input type="text" class="form-control" name="{{field.name}}" value="{{field.value}}">{% if form.field.errors %}<span class="spanerror">  * error en los datos</span>{% endif %}
+                        {% if field.errors %}<span class="spanerror">  * Error. Verifica que todo está correcto</span>{% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="{{field.id_for_label}}">{{profile_form.cat_preferidas.label}}: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                    {% if profile_form.cat_preferidas.errors %}<span class="spanerror" style="color: #DD0000;">  * necesario{% endif %}</span><br>
+                    {{profile_form.cat_preferidas}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-4 col-md-4 col-lg-4" for="{{field.id_for_label}}">{{profile_form.css.label}}: </label>
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-6">
+                    {% if profile_form.css.errors %}<span class="spanerror" style="color: #DD0000;">  * necesario{% endif %}</span><br>
+                        <p>Selecciona uno. Puedes previsualizar los estilos pinchando en los siguientes botones. El estilo "SIMPLE" está especialmente diseñado para personas menos jóvenes <img style="width: 1.5em; vertical-align: text-top;" src="{% static 'img/emo_feliz.png' %}" alt="emoticono feliz"/></p>
+                        {{profile_form.css}}<span>&nbsp;&nbsp;&nbsp;</span>
+                        <span data-toggle="modal" data-target="#temaclaro"><button type="button" class="btn btn-default" data-toggle="muestraclaro">CLARO</button></span>
+                        <span data-toggle="modal" data-target="#temaoscuro"><button type="button" class="btn btn-default" data-toggle="muestraoscuro">OSCURO</button></span>
+                        <span data-toggle="modal" data-target="#temasimple"><button type="button" class="btn btn-default" data-toggle="muestrasimple">SIMPLE</button></span><br><br>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-xs-12 col-sm-12 col-md-12 col-lg-4" for=""> </label>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                        <button type="submit" class="btn-danger btn-lg">ACTUALIZAR</button><br><br>
+                    </div>
+                </div>
+
+            </div>
+    </form>
+</div>
+<br><br>
+{% include 'footer.html' %}
+{% include 'modaltemaclaro.html' %}
+{% include 'modaltemaoscuro.html' %}
+{% include 'modaltemasimple.html' %}
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="muestraclaro"]').tooltip({title: "<img src=\"{% static 'img/cssclaro.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+    $('[data-toggle="muestraoscuro"]').tooltip({title: "<img src=\"{% static 'img/cssoscuro.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+    $('[data-toggle="muestrasimple"]').tooltip({title: "<img src=\"{% static 'img/csssimple.jpg' %}\" width=\"100%\" style=\"border: 3px solid #000000;\">", html: true, placement: "auto"});
+});
+</script>
+</body>
+</html>

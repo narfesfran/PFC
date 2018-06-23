@@ -1,0 +1,63 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+
+</head>
+
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+
+{% if tipo == 'place' %}
+{% include 'navbarsimple2.html' %}
+{% elif tipo == 'site' %}
+{% include 'navbarsimple2s.html' %}
+{% else %}
+{% include 'navbarsimple2p.html' %}
+{% endif %}
+{% include 'carrusel.html' %}
+
+{% else %}
+
+{% include 'navbar2.html' %}
+{% include 'carrusel.html' %}
+
+{% endif %}
+
+<div class="row"><br><br><br><br>
+ <div id="listadonombres" style="display:block; float:left;">
+        <input class="form-control" id="buscador" type="text" placeholder="Buscar en los resultados...">
+            <div id="nombres">
+                <a href="">Ciudad encantada</a><br>
+                <a href="">Siguenza</a><br>
+                <a href="">Mallorca</a><br>
+                <a href="">Cullera</a><br>
+                <a href="">Cies</a><br>
+                <a href="">Careluega</a><br>
+                <a href="">Villafranca del Bierzo</a><br>
+                <a href="">Cuenca</a><br>
+                <a href="">Cordoba</a><br>
+                <a href="">Albacete</a><br>
+                <a href="">Monasterio de Piedra</a><br>
+                <a href="">Madrid</a><br>
+                <a href="">Monasterio de El Escorial</a><br>
+                <a href="">Torremolinos</a><br>
+                <a href="">Segovia</a><br>
+            </div>
+        </div>
+</div>
+<script>
+$(document).ready(function(){
+  $("#buscador").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#nombres a").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+</body>
+</html>

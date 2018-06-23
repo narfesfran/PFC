@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+</head>
+<body id="bodi">
+{% include 'navbar1.html' %}
+{% include 'carrusel.html' %}
+
+<div class="container text-left">
+  <h2>Listado de usuarios registrados</h2><br>
+  {% for item in item_list %}
+  <h4><a href="{% url 'user_info' pk=item.pk %}">{{ item.username }}</a><a href="{% url 'delete_user' pk=item.pk %}">  <span class="glyphicon glyphicon-remove"></span></a></h4>
+  {% endfor %}
+</div>
+<br><br>
+{% include 'footer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+</head>
+<body id="bodi">
+{% include 'navbar3.html' %}
+<div class="container text-center" style="font-size: xx-large; color: #660000; width: 75%; margin-top: 200px;">
+    <img style="height: 15vw;" src="https://cdn.icon-icons.com/icons2/683/PNG/512/sad-5_icon-icons.com_61110.png">
+    <p>Lo sentimos, pero no hay ningún resultado con tus parámaetros de búsqueda.</p><br>
+    <a style="font-size: 0.8em;" class="btn btn-danger" href="{% url 'recomend' %}">VOLVER A BUSCAR</a>
+</div>
+</body>
+</html>

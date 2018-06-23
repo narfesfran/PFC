@@ -1,0 +1,66 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+{% include 'f_head.html' %}
+</head>
+
+<!--<body id="bodi" style="background: url('{% static 'img/carrusel/carrusel01.jpg' %}') no-repeat; background-size:100% 120%;">-->
+<body id="bodi">
+
+{% if request.user.profile.css == "3" %}
+{% if mensaje != '' %}
+<br><br><div style="width: 100%; background-color: #22FF22; color: #006600; font-size: xx-large; font-weight: bolder; padding: 1em;">{{mensaje}}</div>
+{% endif %}
+
+{% include 'navbarsimple.html' %}
+{% else %}
+
+{% include 'navbar0.html' %}
+
+{% if mensaje != '' %}
+<br><br><div style="width: 100%; background-color: #22FF22; color: #006600; font-size: xx-large; font-weight: bolder; padding: 1em;">{{mensaje}}</div>
+{% endif %}
+
+
+
+{% if not user.is_authenticated %}
+<br><br><br>
+    <div class="text-center">
+        <div class="well">
+            <a href="{% url 'new_user' %}">Registro de un nuevo usuario</a>
+        </div>
+    </div>
+{% endif %}
+
+<div class="container text-left">
+<br><br><br>
+    <!--<h2>Bienvenido {{user.username}}</h2><br>-->
+    <div class="text-center">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'login' %}"><img class="imaportada" data-toggle="tooltip" title="BE around" src="{% static 'img/BAROUNDLOGO.png' %}" /></a>
+        {% else %}
+        <a href="{% url 'user_info' pk=request.user.pk %}"><img class="imaportada" data-toggle='tip' title='BE around' src="{% static 'img/BAROUNDLOGO.png' %}" /></a>
+        {% endif %}
+    </div>
+
+    <div class="container text-center">
+            <h4>Hola querido amigo. Desde "BE around" queremos darte la bienvenida a nuestra web. Esperamos que encuentres de utilidad los contenidos que en ella te esperan</h4>
+            <h4>Si tienes cualquier duda, pincha en los iconos de interrogación y o bien Samos o bien Seras te ayudarán en la medida de lo posible</h4>
+            <h4>BE around friends, BE around family, BE around the world!!!</h4>
+
+    </div>
+</div>
+
+
+
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tip"]').tooltip();
+});
+</script>
+</body>
+</html>
+{% endif %}

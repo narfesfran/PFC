@@ -1,0 +1,126 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+</head>
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple1.html' %}
+{% include 'carrusel.html' %}
+{% if mensaje != '' %}
+<br><div style="width: 100%; background-color: #22FF22; color: #006600; font-size: xx-large; font-weight: bolder; padding: 1em;">{{mensaje}}</div>
+{% endif %}
+<div class="container text-left">
+    {% else %}
+
+    {% include 'navbar1.html' %}
+    {% include 'carrusel.html' %}
+    {% if mensaje != '' %}
+    <br><div style="width: 100%; background-color: #22FF22; color: #006600; font-size: xx-large; font-weight: bolder; padding: 1em;">{{mensaje}}</div>
+    {% endif %}
+    <div class="container text-left"><br>
+        {% endif %}
+
+        {% if perms.auth.change_user %}
+        {% if grupo == "usuarios" %}
+        <a href="{% url 'addtoadmin' pk=item.pk  %}"><span class="glyphicon glyphicon-star"></span> Dar rol de editor de contenido </a><br><br>
+        {% elif grupo == "administradores" %}
+        <a href="{% url 'addtousers' pk=item.pk  %}"><span class="glyphicon glyphicon-user"></span> Dar rol de usuario </a><br><br>
+        {% endif %}
+        {% endif %}
+
+        <div class="row">
+
+            {% if grupo == "administradores" %}
+            <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+                <h2>Mis lugares favoritos</h2>
+                {% for favorito in favoritos %}
+                <p><span class="glyphicon iconfavorito glyphicon-star"></span>  <a href="{% url 'place_info' pk=favorito.pk %}">{{favorito.name}}</a></p>
+                {% endfor %}
+                <br>
+                <h2>Datos del perfil</h2>
+                {% for field in profile %}
+                {% if field.name != "css" %}
+                <p>{{field.label}}: {{field.value}}</p>
+                {% endif %}
+                {% endfor %}
+                <br><br>
+                {% if perms.auth.change_user or item.pk == request.user.pk %}
+                <a href="{% url 'edit_user' pk=item.pk  %}"><span class="glyphicon glyphicon-edit"></span> Editar mi perfil</a><br>
+                <a href="#" data-toggle="modal" data-target="#confirmuserdelete"><span class="glyphicon glyphicon-remove"></span> Eliminar la cuenta de usuario </a><br>
+                <!-- Modal --><div class="modal fade" id="confirmuserdelete" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente la cuenta de usuario?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_user' pk=item.pk  %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+                {% endif %}
+                <br><br>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7 editores">
+                <h2><span class="glyphicon glyphicon-level-up"></span>  EDITOR DE CONTENIDO&nbsp;<a data-toggle="tooltip" title="¿Necesitas ayuda?"><span data-toggle="modal" data-target="#ayudacrearlugares" class="glyphicon glyphicon-question-sign"></span></a></h2>
+                {% if perms.PFC.add_place %}
+                <a href="{% url 'new_place' tp='site' %}" data-toggle="tooltip" title="Pincha para crear un nuevo lugar con categoría de sitio"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Sitio </a><br>
+                <a href="{% url 'new_place' tp='poi' %}" data-toggle="tooltip" title="Pincha para crear un nuevo lugar con categoría de punto de interés"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Punto de Interés </a><br><br>
+                {% endif %}
+                <h2><span class="glyphicon glyphicon-check"></span>  Mis Lugares creados&nbsp;<a data-toggle="tooltip" title="¿Necesitas ayuda?"><span data-toggle="modal" data-target="#ayudalugarescreados" class="glyphicon glyphicon-question-sign"></span></a></h2>
+                {% for item in item_list %}
+                {% if item.author == request.user.pk and perms.PFC.add_place %}
+                {% if item.tipo == 'site' %}
+                <span><a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconsite glyphicon-map-marker"></span>  {{ item.name }}</a>
+                          <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este sitio" class="glyphicon glyphicon-remove"></span></a>
+                    <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+                          <a href="{% url 'edit_place' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para editar este sitio"><span class="glyphicon glyphicon-edit"></span></a>
+                          <a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este sitio"> <span class="glyphicon glyphicon-picture"></span>+</a><br>
+                      </span>
+
+                {% else %}
+                <span><a href="{% url 'place_info' pk=item.pk %}"><span class="glyphicon iconpoi glyphicon-map-marker"></span>  {{ item.name }}</a>
+                          <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}">  <span data-toggle="tooltip" title="Pincha para borrar este punto de interés" class="glyphicon glyphicon-remove"></span></a>
+                    <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+                          <a href="{% url 'edit_place' pk=item.pk  %}"><span class="glyphicon glyphicon-edit" data-toggle="tooltip" title="Pincha para editar este punto de interés"></span></a>
+                          <a href="{% url 'add_photo' pk=item.pk  %}" data-toggle="tooltip" title="Pincha para añadir imágenes a este punto de interés"> <span class="glyphicon glyphicon-picture"></span>+</a><br>
+                      </span>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                <br>
+
+            </div>
+            {% else %}
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                <h2>Mis lugares favoritos</h2>
+                {% for favorito in favoritos %}
+                <p><span class="glyphicon iconfavorito glyphicon-star"></span>  <a href="{% url 'place_info' pk=favorito.pk %}">{{favorito.name}}</a></p>
+                {% endfor %}
+                <br>
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5">
+                <h2>Datos del perfil</h2>
+                {% for field in profile %}
+                {% if not field.name == "css" %}
+                <p>{{field.label}}: {{field.value}}</p>
+                {% endif %}
+                {% endfor %}
+                <br><br>
+                {% if perms.auth.change_user or item.pk == request.user.pk %}
+                <a href="{% url 'edit_user' pk=item.pk  %}"><span class="glyphicon glyphicon-edit"></span> Editar mi perfil</a><br>
+                <a href="#" data-toggle="modal" data-target="#confirmuserdelete"><span class="glyphicon glyphicon-remove"></span> Eliminar la cuenta de usuario </a><br>
+                <!-- Modal --><div class="modal fade" id="confirmuserdelete" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente la cuenta de usuario?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_user' pk=item.pk  %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+                {% endif %}
+                <br>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <br><br>
+    {% include 'footer.html' %}
+    {% include 'modalcrearlugares.html' %}
+    {% include 'modallugarescreados.html' %}
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% load staticfiles %}
+<!-- Modal -->
+<div class="modal fade" id="ayudalugarescreados" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="float-rt" href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a><h2 class="modal-title"><span style="vertical-align: text-top;" class="glyphicon glyphicon-question-sign"></span> Mis Lugares creados</h2>
+            </div>
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="media-chat chat-lt">
+                           <p>Aquí encontrarás todos los lugares que tú has creado como editor de contenido.</p>
+                            <p>El icono marcador <span class="glyphicon iconsite glyphicon-map-marker"></span> rojo significa que es un Lugar con categoría de Sitio. </p>
+                            <p>El icono marcador <span class="glyphicon iconpoi glyphicon-map-marker"></span> verde significa que es un Lugar con categoría de Punto de Interés. </p>
+                            <p>A la derecha del nombre del lugar podrás ver tres iconos: <br>
+                               <span class="glyphicon glyphicon-remove"></span> para eliminar el Lugar,<br>
+                               <span class="glyphicon glyphicon-edit"></span> para editar el contenido del Lugar, y <br>
+                               <span class="glyphicon glyphicon-picture"></span>+ para añadir fotos al Lugar.</p>
+                            <p>Si pinchas en el nombre del Lugar accederás a su ficha, desde donde también podrás acceder a estas opciones.</p>
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <img class="media-object logomedia-rt" src="{% static 'img/chatS2_ani.gif' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>

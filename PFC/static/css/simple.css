@@ -1,0 +1,261 @@
+/* ELEMENTO ACTIVO */
+.navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    color: #FFFFFF;
+    background-color: #0055EE;
+}
+/* ELEMENTO HOVER */
+.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
+    color: #FFFFFF;  /*Sets the text hover color on navbar*/
+    background-color: #000066;
+}
+.navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #224499;
+    font-size: xx-large;
+    font-weight: bold;
+    border-bottom: solid 1px #000000;
+}
+
+.navbar-nav > li > a{
+    color: #DDDDFF;
+}
+.navbar-menu{
+    color: DDDDFF;
+}
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------*/
+
+h1 {
+    width: 100%;
+    background-color: #0055EE;
+    color: #FFFFFF;
+    padding: 0.5em;
+    margin: 0px;
+    border-top: solid 2px #0055EE;
+    font-size: smaller;
+}
+
+h2, h4{
+    font-size: xx-large;
+    color: #000033;
+}
+
+#bodi{
+    background-color: #EEEEFF;
+    color: #000000;
+    font-size: 2.8em;
+}
+
+a, a:active, a:link, a:visited {
+    color: #000099;
+}
+a:hover{
+    color: #FF3300;
+}
+
+
+@media (max-width: 600px) {
+    .container{
+    margin-top:6em;
+    }
+}
+
+
+#carrusel {
+    margin: 80px auto 0px auto;
+}
+
+.filtro-head{
+}
+
+.btn-filtro{
+    background-color: #224499;
+    color: #DDDDFF;
+}
+
+.btn-filtro:hover{
+    background-color: #000066;
+}
+
+.imagaleria{
+    height: 20vh;
+}
+
+.well, .well a{
+    background-color: #AA6E19;
+    color: #EDC15A;
+}
+.well a:hover{
+    color: #FFFFFF;
+}
+
+.iconsite{color: #AA0000}
+.iconpoi{color: #009900}
+.iconfavorito{color: #EBB000;}
+
+
+
+
+.btn{
+    font-size: x-large;
+    font-weight: bold;
+}/*
+.btn:hover{
+    background-color: #116666;
+    border:2px solid #000000;
+    color: #FFFFFF;
+
+}*/
+
+
+
+
+
+
+
+
+
+
+#buscador{
+    background-color: #FFF9ED;
+    color: #5E0000;
+    border: none;
+    border-radius:0px;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    text-align: center;
+}
+
+#buscador > placeholder{
+color:green;
+}
+
+.bactive{
+    background-color: #66AA00;
+    color: #FFFFFF;
+}
+
+.tablaresultados {
+    border: 1px solid #5E0000;
+    text-align: left:
+}
+.tablaresultados td {
+    border: 1px solid #5E0000;
+    text-align: center;
+    padding: 5px;
+}
+
+
+
+
+.table-hover a:hover{
+    color: #5E0000;
+}
+
+.star{color: #5E0000;}
+
+
+.etiqueta_maps{background-color: #EEEEFF; color: #000066; width: 30vw; padding:5px 15px; font-size: x-large;}
+
+.botonfavoritos:hover{
+    color: #FF3300;
+    }
+
+
+
+.modal{
+    background-color:rgba(5,20,0,0.8);
+}
+
+.modal-content{
+    background-color:#DDDDEE;
+    border: solid 10px #000044;
+}
+
+.media-chat{
+    background-color: #FFFFFF;
+    padding:30px;
+    overflow-y: auto;
+    height: 70vh;
+
+}
+.logomedia-rt{
+    margin-left:-10px;
+    height: 12vw;
+}
+.logomedia-lt{
+    margin-right:-10px;
+    width: 12vw;
+}
+
+.inicioa{
+    color: #76DD00;
+}
+.panel-title > a{
+    color: #0055EE;
+    font-size: x-large;
+}
+.panel-heading{
+    background-color: #CCCCFF;
+}
+.panel{
+    border: solid 2px #000055;
+}
+
+
+.btn-danger{
+    background-color: #224499;
+    border-color: #000000;
+    color: #DDDDFF;
+}
+.btn-danger:hover{
+    background-color: #000066;
+    border-color: #000000;
+}
+
+.btn-punt{
+    background-color: transparent;
+    color: #000000;
+    border: none;
+    margin-left: 0;
+    margin-right:-8px;
+}
+.btn-punt:hover{
+    background-color: #000066;
+    color: #DDDDFF;
+}
+
+.stats{
+    font-weight: bold;
+    font-size: smaller;
+    color: #000066;
+}
+a.ayuda_a:hover{
+    color: #000000;
+    font-weight: bold;
+    font-style: italic;
+}
+
+
+input[type=checkbox] {
+  transform: scale(2);
+}
+#span0, #span1, #span2, #span3, #span4, #span5, #span6, #span7, #span8, #span9, #span10 {border: solid 1px #000066;}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #222222;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #DDDDFF;
+}
+.table-hover a:hover{
+    color: #FF3300;
+}
+.tableth{
+background-color: #222222; color: #FFFFFF;
+}
+
+
+a.btn-confirm{color: #000000;}
+a.btn-cancel{color: #ff0000;}

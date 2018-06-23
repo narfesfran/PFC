@@ -1,0 +1,137 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+</head>
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple4.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left">
+{% else %}
+{% include 'navbar4.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left">
+{% endif %}
+
+    <div class="row col-xs-12 col-sm-12 col-md-10 col-lg-9">
+        <div class="panel-group" id="desplegable">
+
+            {% if perms.PFC.add_place %}
+            <h2>Preguntas frecuentes de un editor de contenido</h2><br>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#E01">¿Cómo creo un nuevo lugar?</a>
+                    </h2>
+                </div>
+                <div id="E01" class="panel-collapse collapse">
+                    <div class="panel-body">Puedes hacerlo fácilmente desde tu perfil mediante los enlaces dedicados para la creación de sitios y de puntos de interés</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#E02">¿Cómo añado fotos a un lugar?</a>
+                    </h2>
+                </div>
+                <div id="E02" class="panel-collapse collapse">
+                    <div class="panel-body">Puedes llevar a cabo esta situación desde cualquier sitio en que veas este icono <span class="glyphicon glyphicon-picture"></span>+  Lo podrás encontrar en tu perfil, en la sección "Mis lugares creados", así como en cualquier lista de lugares y en la propia ficha del lugar que quieras completar con fotografías extra.</div>
+                </div>
+            </div>
+            <br>
+            {% endif %}
+
+    <h2>Preguntas frecuentes</h2><br>
+
+
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D04">¿Qué podré ver si me registro?</a>
+                    </h2>
+                </div>
+                <div id="D04" class="panel-collapse collapse">
+                    <div class="panel-body">Como usuario registrado podrás acceder a todo el contenido de la aplicación, lo que incluye una serie de lugares con información muy interesante. Por ejemplo podrás ver qué valoración tiene ese lugar según los votos de otros usuarios, dónde está en un mapa, imáganes de lo que te encontrarías si decides visitarlo, etc.<br><br>Además podrás acceder a un sistema de recomendaciones donde a partir de tus preferencias buscaremos los lugares más apropiados para ti</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D07">¿Qué es un sitio? ¿Y un punto de interés?</a>
+                    </h2>
+                </div>
+                <div id="D07" class="panel-collapse collapse">
+                    <div class="panel-body">Ambos son lugares. La diferencia radica en su categoría. Los Sitios son lugares que por su magnitud o interés destacan de forma muy notable. Los Puntos de Interés suelen ser más pequeños o tener una importancia más relativa. Pero a cualquier otro efecto, ambos son idénticos.</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D05">¿Cómo está organizada la aplicación?</a>
+                    </h2>
+                </div>
+                <div id="D05" class="panel-collapse collapse">
+                    <div class="panel-body">En la parte superior podrás acceder a todo el contenido de la aplicación mediante un intuitivo menú.<br><br>En la ficha "Mi Perfil" encontrarás un área personal con tus datos y preferencias.<br>En la pestaña "Lugares" encontrarás los diferentes sitios y puntos de interés almacenados en la web. Desde aquí podrás acceder a sus fichas con toda la información que tenemos de ellos<br>Si pinchas en "Recomendador" accederás al sistema de recomendaciones personales. <br>Y la pestaña "Ayuda" ya la conoces. Estamos en ella para resolver tus dudas.</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D01">¿Cómo puedo registrarme?</a>
+                    </h2>
+                </div>
+                <div id="D01" class="panel-collapse collapse">
+                    <div class="panel-body">Puedes registrarte pinchando en <a class="ayuda_a" href="{% url 'new_user' %}">este enlace</a> o en el que hay para ello en la página de inicio.
+                    También puedes hacerlo desde el enlace que verás en la página de login cuando intentes acceder a contenido sólo para usuarios registrados.</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D02">¿Cómo puedo ver la información de los lugares?</a>
+                    </h2>
+                </div>
+                <div id="D02" class="panel-collapse collapse">
+                    <div class="panel-body">Tienes que estar registrado para verla. Si no lo estás, regístrate <a class="ayuda_a" href="{% url 'new_user' %}">aquí</a>. Luego, pincha en la pestaña de Lugares
+                    y a continuación en Todos los lugares, Sitios, o Puntos de Interés. Verás los resultados en pantalla. Pincha en cualquier lugar que
+                    quieras para ver su ficha con la información.</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D03">¿Qué es "Mi Perfil"?</a>
+                    </h2>
+                </div>
+                <div id="D03" class="panel-collapse collapse">
+                    <div class="panel-body">"Mi Perfil" es un espacio personal donde podrás encontrar tus datos personales, así como editarlos. También podrás borrar tu cuenta de usuario si decides que ya no quieres estar con nosotros, aunque esperamos que eso no suceda :)</div>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#desplegable" href="#D06">¿Pregunta?</a>
+                    </h2>
+                </div>
+                <div id="D06" class="panel-collapse collapse">
+                    <div class="panel-body">Vacío</div>
+                </div>
+            </div>
+
+
+
+
+            </div>
+        </div>
+
+
+
+    </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+{% include 'footer2.html' %}
+</body>
+</html>

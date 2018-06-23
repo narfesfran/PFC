@@ -1,0 +1,22 @@
+{% load staticfiles %}
+
+<br><br><br><br>
+  <img id="imgfooter" data-toggle="tooltips" data-placement="top" style="height: 15vh; position: fixed; z-index:40; bottom: 0px; right: 0px;" src="{% static 'img/logo.png' %}" >
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltips"]').tooltip({title: "<span style='font-size: 1.5em; color: white;'>Si necesitas ayuda pincha en los iconos de interrogación que verás por las páginas</span>", html: true, placement: "auto"});
+});
+</script>
+<script>
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {myFunction()};
+
+function myFunction() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  document.getElementById("myBar").style.width = scrolled + "%";
+}
+</script>
+

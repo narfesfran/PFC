@@ -1,0 +1,160 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+</head>
+
+
+<body id="bodi">
+{% if request.user.profile.css == "3" %}
+{% include 'navbarsimple3.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left">
+    <h2>Búsqueda de recomendaciones</h2><br><p>Sigue los pasos que te indicamos y buscaremos los mejores lugares para ti en función de lo que nos vayas diciendo.</p><br><br>
+{% else %}
+
+{% include 'navbar3.html' %}
+{% include 'carrusel.html' %}
+<div class="container text-left">
+    <h2>Búsqueda de recomendaciones</h2><br><p>A continuación puedes seleccionar los parámetros que mejor se ajusten a tus preferencias. Si no seleccionas nada, el sistema igualmente te hará una recomendación cuando pinches en "Mostrar Top 10" o en "Mostrar todos los resultados".</p><br><br>
+{% endif %}
+
+    <form method="POST" enctype="multipart/form-data" action="{% url 'recomendaciones' %}">
+
+
+        {% if request.user.profile.css == "3" %}
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div style="border-bottom: solid 2px #000099; width: 100%;"></div><br>
+            <h2><a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudacategorias" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a>Paso 1: Selecciona las categorías que te gusten</h2><br>
+            {% csrf_token %}
+            <table style="width: 90%;"><tr><td>
+        {% else %}
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7">
+            {% csrf_token %}
+            <table style="width: 90%;"><tr><td>
+                <div style="text-align: right;"><a data-toggle="tooltip"><span data-toggle="modal" data-target="#ayudacategorias" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a><label>Selecciona las categorías que prefieras</label></div>
+        {% endif %}
+                <div>
+                    <span onclick="cambia('span0');" style=" margin: 10px; float: right;" id="span0" class="brown"><input id="checkspan0" hidden="hidden" name="categoria1" type="checkbox" value="0" /><div class="brown2" style="padding:10px;"><b> Arte y Diseño  </b><br><img src="{% static 'img/arte.png' %}" /></div></span>
+                    <span onclick="cambia('span1');" style=" margin: 10px; float: right;" id="span1" class="brown"><input id="checkspan1" hidden="hidden" name="categoria2" type="checkbox" value="1" /><div class="brown2" style="padding:10px;"><b> Arquitectura  </b><br><img src="{% static 'img/arquitectura.png' %}" /></div></span>
+                    <span onclick="cambia('span2');" style=" margin: 10px; float: right;" id="span2" class="brown"><input id="checkspan2" hidden="hidden" name="categoria3" type="checkbox" value="2" /><div class="brown2" style="padding:10px;"><b> Historia  </b><br><img src="{% static 'img/historia.png' %}" /></div></span>
+                    <span onclick="cambia('span3');" style=" margin: 10px; float: right;" id="span3" class="brown"><input id="checkspan3" hidden="hidden" name="categoria4" type="checkbox" value="3" /><div class="brown2" style="padding:10px;"><b> Ciencia y Tecnología  </b><br><img src="{% static 'img/ciencia.png' %}" /></div></span>
+                    <span onclick="cambia('span4');" style=" margin: 10px; float: right;" id="span4" class="brown"><input id="checkspan4" hidden="hidden" name="categoria5" type="checkbox" value="4" /><div class="brown2" style="padding:10px;"><b> Naturaleza  </b><br><img src="{% static 'img/naturaleza.png' %}" /></div></span>
+                    <span onclick="cambia('span5');" style=" margin: 10px; float: right;" id="span5" class="brown"><input id="checkspan5" hidden="hidden" name="categoria6" type="checkbox" value="5" /><div class="brown2" style="padding:10px;"><b> Aventura  </b><br><img src="{% static 'img/aventura.png' %}" /></div></span>
+                    <span onclick="cambia('span6');" style=" margin: 10px; float: right;" id="span6" class="brown"><input id="checkspan6" hidden="hidden" name="categoria7" type="checkbox" value="6" /><div class="brown2" style="padding:10px;"><b> Literatura  </b><br><img src="{% static 'img/literatura.png' %}" /></div></span>
+                    <span onclick="cambia('span7');" style=" margin: 10px; float: right;" id="span7" class="brown"><input id="checkspan7" hidden="hidden" name="categoria8" type="checkbox" value="7" /><div class="brown2" style="padding:10px;"><b> Música  </b><br><img src="{% static 'img/musica.png' %}" /></div></span>
+                    <span onclick="cambia('span8');" style=" margin: 10px; float: right;" id="span8" class="brown"><input id="checkspan8" hidden="hidden" name="categoria9" type="checkbox" value="8" /><div class="brown2" style="padding:10px;"><b> Vida urbana  </b><br><img src="{% static 'img/vidaurbana.png' %}" /></div></span>
+                </div>
+            </td>
+            </tr>
+            </table>
+            <br><br><br><br>
+        </div>
+        {% if request.user.profile.css == "3" %}
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        {% else %}
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-5">
+        {% endif %}
+            <table>
+                <tr>
+                    <td>
+
+                        {% if request.user.profile.css == "3" %}
+                        <div style="border-bottom: solid 2px #000099; width: 100%;"></div><br>
+                        <h2><a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaradiobusqueda" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a>Paso 2: ¿Dónde quieres que busquemos sitios para ti?</h2><br>
+                        {% endif %}
+
+                        <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaubicacion" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a><label style="margin-bottom: 15px;">Buscar cerca de:</label><br>
+                        <input class="optionselect" id="id_localizacion" maxlength="100" name="localizacion" type="text" placeholder=" Mi ubicación" style="width:15em" />
+                        {% if error %}<br><span class="spanerror">{{error}}</span>{% endif %}
+                        <br><br>
+
+                        <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaradiobusqueda" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a><label style="margin-bottom: 15px;">¿Seleccionar un radio de búsqueda?</label><br>
+                        <select class="optionselect" id="id_distancia" name="distancia" style="width:15em">
+                            <option name="distancia" value="100000">A cualquier distancia</option>
+                            <option name="distancia" value="50">A menos de 50km</option>
+                            <option name="distancia" value="100">A menos de 100km</option>
+                            <option name="distancia" value="250">A menos de 250km</option>
+                            <option name="distancia" value="500">A menos de 500km</option>
+                        </select><br><br><br><br>
+
+                        {% if request.user.profile.css == "3" %}
+                        <div style="border-bottom: solid 2px #000099; width: 100%;"></div><br>
+                        <h2><a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudanotaminima" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a>Paso 3: ¿Cuál es la valoración mínima que deben tener los sitios?</h2><br>
+                        {% endif %}
+
+                        <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudanotaminima" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a><label style="margin-bottom: 15px;">¿Valoración media de los usuarios?</label><br>
+                        <select class="optionselect" id="id_valoracion" name="valoracion">
+                            <option value="0">Cualquier nota</option>
+                            <option value="50">Que tengan más de 5</option>
+                            <option value="60">Que tengan más de 6</option>
+                            <option value="70">Que tengan más de 7</option>
+                            <option value="80">Que tengan más de 8</option>
+                            <option value="90">Que tengan más de 9</option>
+                        </select><br><br><br><br>
+
+                        {% if request.user.profile.css == "3" %}
+                        <div style="border-bottom: solid 2px #000099; width: 100%;"></div><br>
+                        <h2><a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaprioridad" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a>Paso 4: ¿A qué quieres darle más importancia?</h2><br>
+                        {% endif %}
+
+                        <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaprioridad" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a><label style="margin-bottom: 15px;">¿A qué criterio le damos más valor?</label><br>
+                        <select class="optionselect" id="id_prioridad" name="prioridad" style="width:15em">
+                            <option value="333">A todos por igual</option>
+                            <option value="181">A que estén cerca de donde busco</option>
+                            <option value="118">A la valoración de los demás usuarios</option>
+                            <option value="811">A que compartan muchas categorías con mi selección</option>
+                        </select><br><br><br><br>
+
+                        {% if request.user.profile.css == "3" %}
+                        <div style="border-bottom: solid 2px #000099; width: 100%;"></div><br>
+                        <h2><a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaprioridad" class="glyphicon glyphicon-question-sign"></span>&nbsp;</a>Paso 5: Pincha en el botón de MOSTRAR RESULTADOS</h2><br>
+                        <button name="nresultados" id="id_nresultados" value="10" type="submit" class="btn-danger btn-lg">MOSTRAR RESULTADOS</button>
+                        {% else %}
+                        <button name="nresultados" id="id_nresultados" value="10" type="submit" class="btn-danger btn-lg">Mostrar Top 10</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn-danger btn-lg">Mostrar todos los resultados</button>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </form>
+
+
+</div>
+<br><br>
+{% include 'footer.html' %}
+{% include 'modalcategorias.html' %}
+{% include 'modalubicacion.html' %}
+{% include 'modalradiobusqueda.html' %}
+{% include 'modalprioridad.html' %}
+{% include 'modalnotaminima.html' %}
+
+<script type="text/javascript">
+  function cambia(x){
+    var color = document.getElementById(x).style.backgroundColor;
+    <!--alert(color);-->
+    if (color == "rgb(170, 110, 25)"){
+      <!--alert("if");-->
+      document.getElementById(x).style.backgroundColor = "transparent";
+      document.getElementById(x).style.color = "rgb(0,0,0)";
+    }else{
+      <!--alert("else");-->
+      document.getElementById(x).style.backgroundColor = "rgb(170, 110, 25)";
+      document.getElementById(x).style.color = "rgb(255,255,255)";
+    }
+    var ruta = "check"+x;
+    //alert(ruta);
+    var valor = document.getElementById(ruta).checked;
+    if (valor == false){
+    document.getElementById(ruta).checked = true;
+    }else{
+    document.getElementById(ruta).checked = false;
+    }
+ }
+</script>
+
+</body>
+</html>

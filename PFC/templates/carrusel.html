@@ -1,0 +1,82 @@
+{% load staticfiles %}
+
+<div id="carrusel" class="carousel slide" data-ride="carousel" data-pause="false" data-interval="6000">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carrusel" data-slide-to="0" class="active"></li>
+    <li data-target="#carrusel" data-slide-to="1"></li>
+    <li data-target="#carrusel" data-slide-to="2"></li>
+    <li data-target="#carrusel" data-slide-to="3"></li>
+    <li data-target="#carrusel" data-slide-to="4"></li>
+    <li data-target="#carrusel" data-slide-to="5"></li>
+    <li data-target="#carrusel" data-slide-to="6"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active" ><span id="randomimg01"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img01"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg02"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img02"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg03"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img03"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg04"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img04"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg05"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img05"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg06"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img06"></span></h3></div></div>
+
+    <div class="item" ><span id="randomimg07"></span><div class="carousel-caption">
+      <h3 class="carruselh3"><span class="captionslide" id="randomh3img07"></span></h3></div></div>
+    </div>
+   <!--Left and right controls -->
+  <a class="left carousel-control" href="#carrusel" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carrusel" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span class="sr-only">Next</span>
+  </a>
+
+  <script>
+  var lugar01 = ["01","La Alhambra de Granada","{% url 'place_info' pk="1" %}"];
+  var lugar02 = ["02","Mezquita-Catedral de Córdoba","{% url 'place_info' pk="5" %}"];
+  var lugar03 = ["03","Monasterio de El Escorial en Madrid","{% url 'place_info' pk="29" %}"];
+  var lugar04 = ["04","Sigüenza en Guadalajara","{% url 'place_info' pk="48" %}"];
+  var lugar05 = ["05","Albarracín en Teruel","{% url 'place_info' pk="13" %}"];
+  var lugar06 = ["06","Molinos de Consuegra en Toledo","{% url 'place_info' pk="12" %}"];
+  var lugar07 = ["07","Casas Colgadas de Cuenca","{% url 'place_info' pk="14" %}"];
+  var lugar08 = ["08","Praia das Catedrais en Lugo","{% url 'place_info' pk="50" %}"];
+  var lugar09 = ["09","Museo Guggenheim de Bilbao","{% url 'place_info' pk="51" %}"];
+  var lugar10 = ["10","Murallas de Ávila","{% url 'place_info' pk="52" %}"];
+  var lugar11 = ["11","Reales Alcázares de Sevilla","{% url 'place_info' pk="53" %}"];
+  var lugar12 = ["12","Plaza de España de Sevilla","{% url 'place_info' pk="54" %}"];
+  var lugar13 = ["13","Peñíscola en Castellón","{% url 'place_info' pk="55" %}"];
+  var lugar14 = ["14","Las Médulas en León","{% url 'place_info' pk="11" %}"];
+  var lugar15 = ["15","Islas Cíes en Pontevedra","{% url 'place_info' pk="56" %}"];
+
+  var lista = [lugar01,lugar02,lugar03,lugar04,lugar05,lugar06,lugar07,lugar08,lugar09,lugar10,lugar11,lugar12,lugar13,lugar14,lugar15];
+  lista = lista.sort(function() {return Math.random() - 0.5});
+
+  document.getElementById("randomimg01").innerHTML = ("<a href=\"" + lista[1][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[1][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img01").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[1][1] + "</a>");
+  document.getElementById("randomimg02").innerHTML = ("<a href=\"" + lista[2][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[2][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img02").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[2][1] + "</a>");
+  document.getElementById("randomimg03").innerHTML = ("<a href=\"" + lista[3][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[3][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img03").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[3][1] + "</a>");
+  document.getElementById("randomimg04").innerHTML = ("<a href=\"" + lista[4][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[4][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img04").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[4][1] + "</a>");
+  document.getElementById("randomimg05").innerHTML = ("<a href=\"" + lista[5][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[5][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img05").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[5][1] + "</a>");
+  document.getElementById("randomimg06").innerHTML = ("<a href=\"" + lista[6][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[6][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img06").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[6][1] + "</a>");
+  document.getElementById("randomimg07").innerHTML = ("<a href=\"" + lista[7][2] + "\"><img src=\"/static/img/carrusel/carrusel" + lista[7][0] + ".jpg\" /></a>");
+  document.getElementById("randomh3img07").innerHTML = ("<a class=\"carrusel\" style=\"color:#FFFFFF;\" href=\"" + lista[1][2] + "\">" + lista[7][1] + "</a>");
+  </script>
+
+</div>

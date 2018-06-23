@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!-- Modal -->
+<div class="modal fade" id="ayudaubicacion" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="float-rt" href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a><h2 class="modal-title"><span style="vertical-align: text-top;" class="glyphicon glyphicon-question-sign"></span> Cómo poner una dirección</h2>
+            </div>
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="media-chat chat-lt">
+                            <p>Escribe el lugar en torno al que quieres hacer la búsqueda. Trata de ser preciso con los acentos, pero no seas muy específico con una dirección para evitar fallos en la detección de la ubicación.</p>
+                            <p>Por ejemplo, puedes poner "Málaga", "Collado Villalba", o "Carmona, Andalucía", pero evita poner cosas como "teatro calderon de madrid".</p>
+                            <p>Si no pones nada y somos capaces de detectar tu ubicación, usaremos ésta para la búsqueda.</p>
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <img class="media-object logomedia-rt" src="{% static 'img/chatS2_ani.gif' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>

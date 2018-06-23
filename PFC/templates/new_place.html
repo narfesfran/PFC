@@ -1,0 +1,326 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  {% include 'f_head.html' %}
+
+      <style>
+
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+
+
+
+</head>
+
+{% if request.user.profile.css == "3" %}
+<body id="bodi">
+{% include 'navbarsimple2.html' %}
+{% else %}
+<body id="bodi">
+{% include 'navbar2.html' %}
+{% endif %}
+{% include 'carrusel.html' %}
+
+
+<div class="container text-left">
+  <h2>Nuevo {% if tipo == 'site' %}SITIO{% else %}PUNTO DE INTERÉS{% endif %}</h2><br><p>Los campos marcados con un asterisco * son obligatorios</p>
+
+      {% if form.tipo.errors %}<span class="spanerror">Comprueba el tipo de lugar</span><br>{% endif %}
+      {% if form.name.errors %}<span class="spanerror">Comprueba que has puesto el nombre del lugar</span><br>{% endif %}
+      {% if form.url.errors %}<span class="spanerror">Comprueba la URL. Igual no es válida o se te olvidó ponerla</span><br>{% endif %}
+      {% if form.description.errors %}<span class="spanerror">Comprueba que has introducido la descripción</span><br>{% endif %}
+      {% if form.image.errors %}<span class="spanerror">Comprueba que has elegido una imagen de portada</span><br>{% endif %}
+      {% if form.categorias.errors %}<span class="spanerror">Comprueba que has seleccionado al menos una categoría</span><br>{% endif %}
+      {% if form.latitude.errors %}<span class="spanerror">Comprueba que has escrito la latitud y está correcta</span><br>{% endif %}
+      {% if form.longitude.errors %}<span class="spanerror">Comprueba que has escrito la longitud y está correcta</span><br>{% endif %}
+      {% if form.rating.errors %}<span class="spanerror">Comprueba que has puesto una nota inicial a tu sitio</span><br>{% endif %}
+
+
+
+  <form method="post" id="creacion" enctype="multipart/form-data" class="form-horizontal">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <div class="form-group">
+          <label hidden="hidden" class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3" for="{{form.tipo.id_for_label}}">* Lugar: </label>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <input type="hidden" class="form-control" name="{{form.tipo.name}}" value="{{tipo}}">
+            {% if form.tipo.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3" for="{{form.name.id_for_label}}">* Nombre: </label>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <input type="text" class="form-control" placeholder="Introduce el nombre del lugar" {% if form.name.value %} value="{{form.name.value}}"{% endif %} name="{{form.name.name}}">
+            {% if form.name.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3" for="{{form.url.id_for_label}}">* URL: </label>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <input type="text" class="form-control" placeholder="Introduce la direccion web" {% if form.url.value %} value="{{form.url.value}}"{% endif %} name="{{form.url.name}}">{% if form.url.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3" for="{{form.description.id_for_label}}">* Descripción: </label>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <textarea class="form-control" rows="10" {{form.description}}{% if form.description.errors %}<span class="spanerror">  * necesario</span>{% endif %}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-3 col-sm-3 col-md-3 col-lg-3" for="{{form.ref.id_for_label}}">Pertenece a:</label>
+          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <span class="form-control">
+            {{form.ref}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="form-group">
+          <label style="margin-left: 1em" for="{{form.image.id_for_label}}">* Imagen de portada: </label>
+          <div class="form control" style="margin-left: 1em">
+            {{form.image}} {% if form.image.errors %}<span class="spanerror" style="color: #DD0000;">  * necesario{% endif %}</span>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label style="margin-left: 1em" for="{{form.categorias.id_for_label}}">* Categorías del Lugar:</label>
+          {% if form.categorias.errors %}<span class="spanerror" style="color: #DD0000;">  * necesario. Selecciona al menos una{% endif %}</span>
+          {{form.categorias}}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <br><br>
+      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+        <div class="form-group">
+          <label class="control-label col-xs-12 col-sm-6 col-md-3 col-lg-3" for="{{form.latitude.id_for_label}}">* Latitud: </label>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <input type="text" class="form-control" placeholder="Ej: -40.11061"{% if form.latitude.value %} value="{{form.latitude.value}}"{% endif %} name="{{form.latitude.name}}">
+          </div><div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">{% if form.latitude.errors %}<span class="spanerror">  * necesario. Rango [-90.0 a 90.0]</span>{% endif %}</div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-12 col-sm-6 col-md-3 col-lg-3" for="{{form.longitude.id_for_label}}">* Longitud: </label>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <input type="text" class="form-control" placeholder="Ej: 175.15124"{% if form.longitude.value %} value="{{form.longitude.value}}"{% endif %} name="{{form.longitude.name}}">
+          </div><div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">{% if form.longitude.errors %}<span class="spanerror">  * necesario. Rango [-180.0 a 180.0]</span>{% endif %}</div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-xs-12 col-sm-6 col-md-3 col-lg-3" for="{{form.rating.id_for_label}}">* Nota inicial: </label>
+          <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+            <input type="text" class="form-control" placeholder="De 0 a 100"{% if form.rating.value %} value="{{form.rating.value}}"{% endif %} name="{{form.rating.name}}">
+          </div><div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">{% if form.rating.errors %}<span class="spanerror">  * necesario. Rango [0 a 100]</span>{% endif %}</div>
+
+
+
+        </div>
+      </div>
+    </div>
+
+        <div class="row">
+      <div class="text-center">
+        <br><button type="submit" form="creacion" class="btn-danger btn-lg">CREAR</button><br><br>
+      </div>
+    </div>
+<br>
+      <span>Si no te sabes las coordenadas, puedes ayudarte con el siguiente mapa para saberlas.
+      <br><b>1) Pincha en el mapa en el lugar del que desees saber las coordenadas y aparecerá un marcador como éste <img style="vertical-align: text-bottom;" src="{% static 'img/marker.png' %}" > que te las mostrará.</b><br>
+      <b>2)</b>  Copia las coordenadas en los campos del formulario<br>
+      <b>NO uses la tecla ENTRAR del teclado para seleccionar un resultado de la caja de búsqueda o tendrás un error. Usa el ratón, por favor</b><br>
+      Si pinchas en un elemento del mapa no obtendrás las coordenadas. Asegúrate de pinchar en un sitio vacío</span>
+    <input id="pac-input" class="controls" type="text" placeholder="Escribe para buscar">
+    <div id="map" style="width: 100%; height: 80vh;"></div>
+    <script>
+      // This example adds a search box to a map, using the Google Place Autocomplete
+      // feature. People can enter geographical searches. The search box will return a
+      // pick list containing a mix of places and predicted search terms.
+
+      // This example requires the Places library. Include the libraries=places
+      // parameter when you first load the API. For example:
+      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+          var map;
+          var markers = [];
+          var infoWindow;
+          var image = "{% static 'img/marker.png' %}";
+          var listener = marker.addListener('dragend', deleteMarkers);
+          function initMap() {
+            var posicion = new google.maps.LatLng(40.41683,-3.70338);
+            map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 6,
+            center: posicion,
+            mapTypeId: 'roadmap',
+            scrollwheel: true
+          });
+
+
+
+
+        google.maps.event.addListener(map, 'click', function(event) {
+            clearMarkers();
+            addMarker(event.latLng, map);
+          });
+          infoWindow = new google.maps.InfoWindow();
+
+
+
+          // Adds a marker to the map.
+          function addMarker(location, map) {
+            // Add the marker at the clicked location, and add the next-available label
+            // from the array of alphabetical characters.
+            var marker = new google.maps.Marker({
+              position: location,
+              map: map,
+              draggable: false,
+              icon: image
+            });
+            markers.push(marker);
+            openInfoWindow(marker);
+          }
+
+          // Sets the map on all markers in the array.
+          function setMapOnAll(map) {
+            for (var i = 0; i < markers.length; i++) {
+              markers[i].setMap(map);
+            }
+          }
+
+          // Removes the markers from the map, but keeps them in the array.
+          function clearMarkers() {
+            setMapOnAll(null);
+          }
+
+          // Shows any markers currently in the array.
+          function showMarkers() {
+            setMapOnAll(map);
+          }
+
+          // Deletes all markers in the array by removing references to them.
+          function deleteMarkers() {
+            clearMarkers();
+            markers = [];
+          }
+
+          function openInfoWindow(marker) {
+            var markerLatLng = marker.getPosition();
+            infoWindow.setContent(['<span><b>COPIA estas coordenadas en los<br>campos del formulario</b></span><br><br>LAT: ',markerLatLng.lat().toFixed(5), '<br> LON: ',markerLatLng.lng().toFixed(5)].join(''));
+            infoWindow.open(map, marker);
+          }
+
+
+
+
+
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // Clear out the old markers.
+          markers.forEach(function(marker) {
+            marker.setMap(null);
+          });
+          markers = [];
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+            var icon = {
+              url: place.icon,
+              size: new google.maps.Size(71, 71),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(17, 34),
+              scaledSize: new google.maps.Size(25, 25)
+            };
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCZKHlsN69qjARnuxnepkyTKnCY3OWZkU&libraries=places&callback=initMap"
+         async defer></script>
+
+
+  </form>
+
+{% include 'footer.html' %}
+
+</div>
+</body>
+</html>

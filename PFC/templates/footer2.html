@@ -1,0 +1,8 @@
+{% load staticfiles %}
+  <img data-toggle="tooltips" data-placement="top" style="height: 30vh; position: fixed; z-index:40; bottom: 0px; right: 0px;" src="{% static 'img/logo.png' %}" >
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltips"]').tooltip({title: "<span style='font-size: 1.5em; color: white;'>En esta página encontrarás respuesta a las preguntas más frecuentes</span>", html: true, placement: "auto"});
+});
+</script>

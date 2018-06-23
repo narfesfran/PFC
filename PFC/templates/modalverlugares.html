@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!-- Modal -->
+<div class="modal fade" id="ayudaverlugares" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="float-rt" href="#" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a><h2 class="modal-title"><span style="vertical-align: text-top;" class="glyphicon glyphicon-question-sign"></span> Crear/Editar Lugares</h2>
+            </div>
+            <div class="modal-body">
+                <div class="media">
+                    <div class="media-body">
+                        <div class="media-chat chat-lt">
+                            <p>Desde los enlaces siguientes podrás ver las páginas de información de cada Lugar.</p>
+                            <p>Para cambiar el modo de visualizar los lugares, pincha en <span class="glyphicon iconsite glyphicon-th-large"></span> o en <span class="glyphicon iconsite glyphicon-list"></span> dependiendo de si estás en modo lista o modo imágenes respectivamente.</p>
+                            <p>Si estás en modo imágenes, al pasar el ratón por encima de ellas verás la nota que ese lugar tiene por parte de los usuarios y podrás acceder a su ficha.</p>
+                            <p>Si estás en modo lista, puedes pinchar en las letras para ver sólo los lugares que empiecen por esa letra, o utilizar la caja de búsqueda para ver si encuentras lo que buscas.</p>
+                            <p>También puedes seleccionar las categorías que prefieras pinchando en los botones superiores.</p>
+                            <p>El icono marcador <span class="glyphicon iconsite glyphicon-map-marker"></span> rojo significa que es un Lugar con categoría de Sitio. </p>
+                            <p>El icono marcador <span class="glyphicon iconpoi glyphicon-map-marker"></span> verde significa que es un Lugar con categoría de Punto de Interés. </p>
+                        </div>
+                    </div>
+                    <div class="media-right">
+                        <img class="media-object logomedia-rt" src="{% static 'img/chatS2_ani.gif' %}">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>

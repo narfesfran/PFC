@@ -1,0 +1,28 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+    <script src="{% static 'js/lightbox.js' %}"></script>
+</head>
+<body id="bodi">
+
+{% include 'navbar0.html' %}
+{% include 'carrusel.html' %}
+
+<div class="container text-left">
+    <h2>Galería de imágenes</h2><br>
+    {% if not item_list %}
+    <p>Lo sentimos, no hay imágenes para mostrar de momento</p>
+    {% else %}
+    {% for item in item_list %}
+    <a class="lightbox" title="" href="{{ item.image.url }}"><img class="imagaleria img-thumbnail" src="{{ item.image.url }}" alt="imagen sin nombre" /></a>
+    {% endfor %}
+    {% endif %}
+</div><br>
+{% include 'footer.html' %}
+<script src="{% static 'js/lightboxcustom.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+{% load staticfiles %}
+{% load thumbnail %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include 'f_head.html' %}
+    <link rel="stylesheet" href="{% static 'css/lightbox.css' %}">
+    <script src="{% static 'js/lightbox.js' %}"></script>
+
+</head>
+
+{% if request.user.profile.css == "3" %}
+
+{% include 'navbarsimple2.html' %}
+{% include 'carrusel.html' %}
+
+{% else %}
+
+{% include 'navbar2.html' %}
+{% include 'carrusel.html' %}
+
+{% endif %}
+<body id="bodi">
+<div class="container text-left">
+    <div class="row">
+            <h2 style="margin: 5vh 0vh 5vh 0vh; font-size: 7vh;">{% if item.tipo == 'site' %}<span class="glyphicon iconsite glyphicon-map-marker"></span>  {% else %}<span class="glyphicon iconpoi glyphicon-map-marker"></span>  {% endif %}{{item.name}} {{rating}}</h2>
+                    <div style="float:right;" class="col-sm-6 col-md-6 col-lg-6"><img class="imagendeportada" src="{{ item.image.url }}" /></div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+
+    {% if perms.PFC.change_place and item.author == request.user.pk %}
+    <a href="{% url 'add_photo' pk=item.pk  %}"><span class="glyphicon glyphicon-picture"></span> Añadir fotos </a><br>
+    <a href="{% url 'edit_place' pk=item.pk  %}"><span class="glyphicon glyphicon-edit"></span> Editar </a><br>
+    <a href="#" data-toggle="modal" data-target="#confirmplacedelete{{item.pk}}"><span class="glyphicon glyphicon-remove"></span> Eliminar </a>
+        <!-- Modal --><div class="modal fade" id="confirmplacedelete{{item.pk}}" role="dialog"><div class="modal-dialog"><!-- Modal content--><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">¿Estás seguro de que quieres eliminar definitivamente este lugar?</h4></div><div class="modal-body"><a class="btn btn-default btn-confirm" href="{% url 'delete_place' pk=item.pk list='profile' %}">SÍ, ELIMINAR</a></div><div class="modal-footer"><button type="button" class="btn btn-default btn-cancel" data-dismiss="modal">CANCELAR</button></div></div></div></div>
+    {% endif %}
+            <div>
+                {% if favorito %}
+                <span class="glyphicon iconfavorito glyphicon-star"></span><span class="stats">&nbsp;Guardado en mis favoritos  -  </span><button type="submit" class="botonfavoritos stats" form="fav">[ Eliminar ]</button>
+                <span class="stats" style="font-weight: normal">&nbsp;&nbsp;&nbsp;(Es favorito para {{item.likes}} personas)</span>
+                {% else %}
+                <button type="submit" style="padding-left: 1px;" class="botonfavoritos stats" form="fav"><span class="glyphicon glyphicon-star" style="font-size: larger;"></span>&nbsp;Añadir a favoritos</button>
+                <span class="stats" style="font-weight: normal">&nbsp;&nbsp;&nbsp;(Es favorito para {{item.likes}} personas)</span>
+                {% endif %}
+            </div>
+            <div>
+                {% if voto %}
+                <form method="post" enctype="multipart/form-data" action="{% url 'votos' %}" id="unvote">
+                {% csrf_token %}
+                <input id="id_usuario" type="hidden" name="usuario" value="{{request.user.pk}}">
+                <input id="id_lugar" type="hidden" name="lugar" value="{{item.pk}}">
+                <input id="id_valor" type="hidden" name="valor" value="{{voto_usuarionum}}">
+                <span class="glyphicon iconfavorito glyphicon-stats"></span><span class="stats">&nbsp;Tú lo valoraste con un {{voto_usuarionum}}  -  </span><button type="submit" class="botonfavoritos stats" form="unvote">[ Cambiar ]</button>
+                <span class="stats" style="font-weight: normal">&nbsp;&nbsp;&nbsp;({{item.votes}} votos en total)</span>
+                </form>
+                {% else %}
+                <form method="post" enctype="multipart/form-data" action="{% url 'votos' %}" id="vote">
+                {% csrf_token %}
+                <input id="id_usuario" type="hidden" name="usuario" value="{{request.user.pk}}">
+                <input id="id_lugar" type="hidden" name="lugar" value="{{item.pk}}">
+                <span class="glyphicon glyphicon-stats"></span><span class="stats">&nbsp;Puntúa este lugar: </span>
+                <button class=" btn-punt stats" type="submit" name="valor" value="10" form="vote"><b>1</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="20" form="vote"><b>2</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="30" form="vote"><b>3</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="40" form="vote"><b>4</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="50" form="vote"><b>5</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="60" form="vote"><b>6</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="70" form="vote"><b>7</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="80" form="vote"><b>8</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="90" form="vote"><b>9</b></button>
+                <button class=" btn-punt stats" type="submit" name="valor" value="100" form="vote"><b>10</b></button>
+                <span class="stats" style="font-weight: normal">&nbsp;&nbsp;&nbsp;({{item.votes}} votos en total)</span>
+                </form>
+                {% endif %}
+            </div>
+            <br>
+            <div>
+                <h3>Descripción:</h3>
+                <p>{{item.description}}</p><br>
+            </div>
+            <div>
+                <h3>Página web: </h3>
+                <p><a href="{{item.url }}" target="_blank">{{item.url }}</a></p><br>
+            </div>
+            <div>
+                <h3>Categorías a las que pertenece: </h3>
+                <p>{{item.categorias }}</p><br>
+
+            </div>
+            {% if not item.ref == null %}
+            <div>
+                <h3>Se encuentra dentro de </h3>
+                <span class="glyphicon iconsite glyphicon-map-marker"></span>  <a href="{% url 'place_info' pk=item.ref.pk %}">{{item.ref }}</a><br><br>
+
+            </div>
+            {% endif %}
+            {% if ref_list %}
+            <div>
+                <h3>Contiene los siguientes puntos de interés: </h3>
+                {% for item in ref_list %}
+                    {% if item.tipo == 'site' %}
+                        <span class="glyphicon iconsite glyphicon-map-marker"></span>  <a href="{% url 'place_info' pk=item.pk %}">{{item.name}}</a><br>
+                    {% else %}
+                        <span class="glyphicon iconpoi glyphicon-map-marker"></span>  <a href="{% url 'place_info' pk=item.pk %}">{{item.name}}</a><br>
+                    {% endif %}
+                {% endfor %}<br>
+            </div>
+            {% endif %}
+            <div>
+                <h3>Imágenes asociadas</h3>
+                {% if not item_list %}
+                <p>Lo sentimos, no hay imágenes para mostrar de momento</p>
+                {% else %}
+                {% for item in item_list %}
+                <a class="lightbox" title="" href="{{ item.image.url }}"><img class="imagaleria img-thumbnail" src="{% thumbnail item.image 300x0 %}" alt="imagen sin nombre" /></a>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div>
+                <br><br>
+
+                <h3>Localización:</h3>
+                <p>Latitud {{item.latitude }} - Longitud {{item.longitude }}</p>
+                {% if distancia %}<p>Se encuentra a {{distancia}} km de donde te encuentras</p>{% endif %}
+            </div>
+            <div id="map">
+                <script>
+                {% if item.tipo == 'site' %}
+                  var image = "{% static 'img/site.png' %}";{% else %}var image = "{% static 'img/poi.png' %}";{% endif %}
+                  var infowindow;
+                  function initMap() {
+                    var posicion = {lat: {{item.latitude}}, lng: {{item.longitude}}};
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 15,
+                      center: posicion,
+                      mapTypeId: 'roadmap',
+                      scrollwheel: true
+                    });
+                    var marker = new google.maps.Marker({
+                      position: posicion,
+                      map: map,
+                      icon: image
+                    });
+                    var contentString = "<span style=\"font-size: 20px; font-weight: bold;\">{{item.name}}</span>";
+                    google.maps.event.addListener(marker, 'click', function() {
+                      if (infowindow) {infowindow.close(); }
+                      infowindow = new google.maps.InfoWindow({content: contentString});
+                      infowindow.open(map, marker);
+                    });
+                  }
+                </script>
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCZKHlsN69qjARnuxnepkyTKnCY3OWZkU&callback=initMap">
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<br><br>
+{% include 'footer.html' %}
+<script src="{% static 'js/lightboxcustom.js' %}"></script>
+<form hidden="hidden" method="post" enctype="multipart/form-data" action="{% url 'favoritos' %}" id="fav">
+    {% csrf_token %}
+    <input id="id_usuario" type="text" name="usuario" value="{{request.user.pk}}">
+    <input id="id_lugar" type="text" name="lugar" value="{{item.pk}}">
+</form>
+
+</body>
+</html>
