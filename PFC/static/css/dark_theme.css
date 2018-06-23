@@ -31,7 +31,7 @@ ul.dropdown-menu{
     padding:0;
 }
 li.submenu{
-    background-color: #CCCCCC;
+    background-color: #484F43;
     padding:0;
     margin: 0;
     color: #000000;
@@ -40,11 +40,12 @@ li.submenu > a{
     color: #CCCC99;
     font-weight: bold;
 }
-li.submenu{
-    background-color: transparent;
-    padding:0;
-    margin: 0;
-    color: #000000;
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a{
+    color: #CCCC99;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover{
+    color: #222222;
+    background-color: #CCCCCC;
 }
 /*--------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------*/
@@ -245,3 +246,12 @@ background-color: #222222; color: #FFFFFF;
 }
 a.btn-confirm{color: #000000;}
 a.btn-cancel{color: #ff0000;}
+
+.spanerror{color: #FF7700;}
+
+@media (max-width: 760px) {
+    .etiqueta_maps{background-color: transparent; color: #000000; width: auto;}
+    .etiqueta_maps a{color: #000000;}
+
+
+}

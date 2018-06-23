@@ -26,7 +26,7 @@
 {% include 'carrusel.html' %}
 
 {% endif %}
-
+<div class="container">
 
     {% if request.user.profile.css == "3" %}
     <div class="row rowlistsimple">
@@ -76,12 +76,12 @@
       <a href="{% url 'new_place' tp='poi' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Punto de Interés </a><br><br>
       {% endif %}
     {% elif tipo == 'site' %}
-    <h2>Listado de Sitios <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
+    <h2><a href="#" onClick="show('listadonombres','listadoimagenes','_nom','_ima')"><span id="_nom" style="display: inline-inline;"><span style="font-size:1.2em;" data-toggle="tip" title="Alternar vista MODO NOMBRE / MODO IMÁGENES" class="glyphicon glyphicon-th-large"></span>&nbsp;</span><span id="_ima" style="display: none;"><span style="font-size:1.2em;" data-toggle="tip" title="Alternar vista MODO NOMBRE / MODO IMÁGENES" class="glyphicon glyphicon-list"></span>&nbsp;</span></a>Listado de Sitios <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
       {% if perms.PFC.add_place %}
       <a href="{% url 'new_place' tp='site' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Sitio </a><br><br>
       {% endif %}
     {% else %}
-    <h2>Listado de Puntos de Interés <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
+    <h2><a href="#" onClick="show('listadonombres','listadoimagenes','_nom','_ima')"><span id="_nom" style="display: inline-inline;"><span style="font-size:1.2em;" data-toggle="tip" title="Alternar vista MODO NOMBRE / MODO IMÁGENES" class="glyphicon glyphicon-th-large"></span>&nbsp;</span><span id="_ima" style="display: none;"><span style="font-size:1.2em;" data-toggle="tip" title="Alternar vista MODO NOMBRE / MODO IMÁGENES" class="glyphicon glyphicon-list"></span>&nbsp;</span></a>Listado de Puntos de Interés <a data-toggle="tooltip" ><span data-toggle="modal" data-target="#ayudaverlugares" class="glyphicon glyphicon-question-sign"></span></a></h2><br>
       {% if perms.PFC.add_place %}
       <a href="{% url 'new_place' tp='poi' %}"><span class="glyphicon glyphicon-plus"></span> Añadir nuevo Punto de Interés </a><br><br>
       {% endif %}
@@ -286,6 +286,6 @@ $(document).ready(function(){
     $('[data-toggle="tip"]').tooltip();
 });
 </script>
-
+</div>
 </body>
 </html>

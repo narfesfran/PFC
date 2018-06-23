@@ -15,5 +15,5 @@ lightbox('.lightbox', {
     zoomText: '&plus;',
     docClose: false,
     swipeClose: true,
-    scroll: true
+    scroll: false
 });

@@ -67,7 +67,7 @@
 {% include 'carrusel.html' %}
 
 
-<div class="container text-left">
+<div class="container text-left"><br>
   <h2>Nuevo {% if tipo == 'site' %}SITIO{% else %}PUNTO DE INTERÉS{% endif %}</h2><br><p>Los campos marcados con un asterisco * son obligatorios</p>
 
       {% if form.tipo.errors %}<span class="spanerror">Comprueba el tipo de lugar</span><br>{% endif %}

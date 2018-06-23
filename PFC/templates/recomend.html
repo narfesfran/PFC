@@ -11,13 +11,13 @@
 {% if request.user.profile.css == "3" %}
 {% include 'navbarsimple3.html' %}
 {% include 'carrusel.html' %}
-<div class="container text-left">
+<div class="container text-left"><br>
     <h2>Búsqueda de recomendaciones</h2><br><p>Sigue los pasos que te indicamos y buscaremos los mejores lugares para ti en función de lo que nos vayas diciendo.</p><br><br>
 {% else %}
 
 {% include 'navbar3.html' %}
 {% include 'carrusel.html' %}
-<div class="container text-left">
+<div class="container text-left"><br>
     <h2>Búsqueda de recomendaciones</h2><br><p>A continuación puedes seleccionar los parámetros que mejor se ajusten a tus preferencias. Si no seleccionas nada, el sistema igualmente te hará una recomendación cuando pinches en "Mostrar Top 10" o en "Mostrar todos los resultados".</p><br><br>
 {% endif %}
 

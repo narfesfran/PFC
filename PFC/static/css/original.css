@@ -31,18 +31,28 @@ ul.dropdown-menu{
     padding:0;
 }
 li.submenu{
-    background-color: #5E0000;
+    background-color: #EDE9B9;
     padding:0;
     margin: 0;
 
 }
+ul.dropdown-menu > li > a:link{color:blue;}
+
 li.submenu > a{
-    color: #CCCCCC;
+    color: #5E0000;
     font-weight: bold;
 }
-.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
-    color: #fff;
+
+.navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover , .navbar-inverse .navbar-nav > .open > a{
+    color: #FFFFFF;
     background-color: #AA6E19;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a{
+    color: #5E0000;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover{
+    color: #5E0000;
+    background-color: #FFFFFF;
 }
 /*--------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------*/
@@ -217,3 +227,6 @@ a.ayuda_a:hover{
 a.btn-confirm{color: #000000;}
 a.btn-cancel{color: #ff0000;}
 
+@media (max-width: 760px) {
+    .etiqueta_maps{background-color: transparent; color: #000000; width: auto;}
+    .etiqueta_maps a{color: #000000;}

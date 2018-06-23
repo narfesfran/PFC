@@ -29,7 +29,7 @@ left:0;
 position:fixed;
 right:0;
 top:0;
-z-index:52;
+z-index:1050;
 overflow:hidden
 boerder:0;
 }
@@ -80,12 +80,12 @@ position:relative
 .lightbox-content img{
 display:block;
 height:auto;
-max-height:80vh;
-margin-top:15vh;
-max-width:85vw;
+max-height:99vh;
+margin-top: 0;
+max-width:99vw;
 width:auto;
 border:0;
-vertical-align: top;
+vertical-align: bottom;
 }
 
 .lightbox-content figcaption{
@@ -148,7 +148,7 @@ font-size: 3em;
 }
 
 .lightbox-overlay button[aria-label=Close]{
-top:1.5em;
+top:0.25em;
 right:2%;
 border:0;
 font-size: 3em;
@@ -160,7 +160,7 @@ color:#fff;
 font-size:1.15em;
 left:2%;
 position:absolute;
-top:5em;
+top:0.25em;
 border:0;
 }
 

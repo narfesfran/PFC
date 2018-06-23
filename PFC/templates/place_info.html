@@ -21,9 +21,9 @@
 
 {% endif %}
 <body id="bodi">
-<div class="container text-left">
+<div class="container text-left"><br>
     <div class="row">
-            <h2 style="margin: 5vh 0vh 5vh 0vh; font-size: 7vh;">{% if item.tipo == 'site' %}<span class="glyphicon iconsite glyphicon-map-marker"></span>  {% else %}<span class="glyphicon iconpoi glyphicon-map-marker"></span>  {% endif %}{{item.name}} {{rating}}</h2>
+            <h2 style="margin: 5vh 1vh 5vh 1vh; font-size: 7vh;">{% if item.tipo == 'site' %}<span class="glyphicon iconsite glyphicon-map-marker"></span>  {% else %}<span class="glyphicon iconpoi glyphicon-map-marker"></span>  {% endif %}{{item.name}} {{rating}}</h2>
                     <div style="float:right;" class="col-sm-6 col-md-6 col-lg-6"><img class="imagendeportada" src="{{ item.image.url }}" /></div>
 
         <div class="col-sm-6 col-md-6 col-lg-6">
@@ -76,28 +76,28 @@
             </div>
             <br>
             <div>
-                <h3>Descripción:</h3>
+                <h2>Descripción:</h2>
                 <p>{{item.description}}</p><br>
             </div>
             <div>
-                <h3>Página web: </h3>
-                <p><a href="{{item.url }}" target="_blank">{{item.url }}</a></p><br>
+                <h2>Página web: </h2>
+                <p style="float:left;"><a href="{{item.url }}" target="_blank">{{item.url }}</a></p><br>
             </div>
             <div>
-                <h3>Categorías a las que pertenece: </h3>
+                <h2>Categorías a las que pertenece: </h2>
                 <p>{{item.categorias }}</p><br>
 
             </div>
             {% if not item.ref == null %}
             <div>
-                <h3>Se encuentra dentro de </h3>
+                <h2>Se encuentra dentro de </h2>
                 <span class="glyphicon iconsite glyphicon-map-marker"></span>  <a href="{% url 'place_info' pk=item.ref.pk %}">{{item.ref }}</a><br><br>
 
             </div>
             {% endif %}
             {% if ref_list %}
             <div>
-                <h3>Contiene los siguientes puntos de interés: </h3>
+                <h2>Contiene los siguientes puntos de interés: </h2>
                 {% for item in ref_list %}
                     {% if item.tipo == 'site' %}
                         <span class="glyphicon iconsite glyphicon-map-marker"></span>  <a href="{% url 'place_info' pk=item.pk %}">{{item.name}}</a><br>
@@ -108,12 +108,12 @@
             </div>
             {% endif %}
             <div>
-                <h3>Imágenes asociadas</h3>
+                <h2>Imágenes asociadas</h2>
                 {% if not item_list %}
                 <p>Lo sentimos, no hay imágenes para mostrar de momento</p>
                 {% else %}
                 {% for item in item_list %}
-                <a class="lightbox" title="" href="{{ item.image.url }}"><img class="imagaleria img-thumbnail" src="{% thumbnail item.image 300x0 %}" alt="imagen sin nombre" /></a>
+                <a class="lightbox" title="" href="{{ item.image.url }}"><img class="imagaleria img-thumbnail" src="{% thumbnail item.image 350x250 crop %}" alt="imagen sin nombre" /></a>
                 {% endfor %}
                 {% endif %}
             </div>
@@ -122,7 +122,7 @@
             <div>
                 <br><br>
 
-                <h3>Localización:</h3>
+                <h2>Localización:</h2>
                 <p>Latitud {{item.latitude }} - Longitud {{item.longitude }}</p>
                 {% if distancia %}<p>Se encuentra a {{distancia}} km de donde te encuentras</p>{% endif %}
             </div>
